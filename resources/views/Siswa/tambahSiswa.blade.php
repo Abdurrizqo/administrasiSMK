@@ -1,0 +1,158 @@
+@extends('layouts.layout')
+@section('content')
+    <div class="w-full bg-gray-100 p-10">
+
+        @if (session('error'))
+            <div role="alert" class="alert alert-error mb-8">
+                <span>{{ session('error') }}</span>
+            </div>
+        @endif
+
+        <span class="text-sm border border-gray-300 inline-block breadcrumbs bg-white px-8 py-3 poppins-medium rounded-full">
+            <ul>
+                <li><a href="/dashboard/siswa">Data Siswa</a></li>
+                <li><a href="#">Tambah Siswa</li></a>
+            </ul>
+        </span>
+
+        <div class="flex justify-center mt-10 mb-20">
+            <div class="w-full lg:w-[40rem] bg-white border shadow rounded-md p-10">
+                <h1 class="text-center font-bold text-xl">Tambah Data Siswa</h1>
+
+                <form method="POST" class="mt-6 w-full flex flex-col gap-3">
+                    @csrf
+
+                    <label class="form-control w-full mb-6">
+                        <div class="label">
+                            <span class="label-text font-semibold">Nama Siswa</span>
+                        </div>
+                        <input required name="namaSiswa" value="{{ old('namaSiswa') }}" type="text"
+                            placeholder="nama siswa" class="input input-bordered w-full" />
+                        @error('namaSiswa')
+                            <p class="text-xs text-red-400">*{{ $message }}</p>
+                        @enderror
+                    </label>
+
+                    <div class="grid grid-cols-2 gap-5 mb-6">
+                        <label class="form-control w-full">
+                            <div class="label">
+                                <span class="label-text font-semibold">NIS</span>
+                            </div>
+                            <input required name="nis" value="{{ old('nis') }}" type="text" placeholder="xxxx"
+                                class="input input-bordered w-full" />
+                            @error('nis')
+                                <p class="text-xs text-red-400">*{{ $message }}</p>
+                            @enderror
+                        </label>
+
+                        <label class="form-control w-full">
+                            <div class="label">
+                                <span class="label-text font-semibold">NISN</span>
+                            </div>
+                            <input required name="nisn" value="{{ old('nisn') }}" type="text" placeholder="xxxx"
+                                class="input input-bordered w-full" />
+                            @error('nisn')
+                                <p class="text-xs text-red-400">*{{ $message }}</p>
+                            @enderror
+                        </label>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-5 mb-6">
+                        <label class="form-control w-full">
+                            <div class="label">
+                                <span class="label-text font-semibold">Jurusan</span>
+                            </div>
+                            <select required name="idJurusan" class="select select-bordered flex-1">
+                                @foreach ($jurusan as $item)
+                                    <option @if (old('idJurusan') === $item['idJurusan']) selected @endif
+                                        value="{{ $item['idJurusan'] }}">
+                                        {{ $item['namaJurusan'] }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('idJurusan')
+                                <p class="text-xs text-red-400">*{{ $message }}</p>
+                            @enderror
+                        </label>
+
+                        <label class="form-control w-full">
+                            <div class="label">
+                                <span class="label-text font-semibold">Tahun Masuk</span>
+                            </div>
+                            <input required name="tahunMasuk" type="number" min="1920" max="2099" step="1"
+                                value="{{ old('tahunMasuk') }}" placeholder="xxxx" class="input input-bordered w-full" />
+                            @error('tahunMasuk')
+                                <p class="text-xs text-red-400">*{{ $message }}</p>
+                            @enderror
+                        </label>
+                    </div>
+
+                    <label class="form-control w-full mb-6">
+                        <div class="label">
+                            <span class="label-text font-semibold">Nama Wali</span>
+                        </div>
+                        <input required name="namaWali" value="{{ old('namaWali') }}" type="text"
+                            placeholder="nama wali" class="input input-bordered w-full" />
+                        @error('namaWali')
+                            <p class="text-xs text-red-400">*{{ $message }}</p>
+                        @enderror
+                    </label>
+
+                    <div class="grid grid-cols-2 gap-5 mb-6">
+                        <label class="form-control w-full">
+                            <div class="label">
+                                <span class="label-text font-semibold">NIK Wali</span>
+                            </div>
+                            <input required name="nikWali" value="{{ old('nikWali') }}" type="text" placeholder="xxxx"
+                                class="input input-bordered w-full" />
+                            @error('nikWali')
+                                <p class="text-xs text-red-400">*{{ $message }}</p>
+                            @enderror
+                        </label>
+
+                        <label class="form-control w-full">
+                            <div class="label">
+                                <span class="label-text font-semibold">Hubungan Keluarga</span>
+                            </div>
+                            <select required name="hubunganKeluarga" class="select select-bordered flex-1">
+                                <option @if (old('hubunganKeluarga') === 'Ayah') selected @endif value="Ayah">
+                                    Ayah
+                                </option>
+                                <option @if (old('hubunganKeluarga') === 'Ibu') selected @endif value="Ibu">
+                                    Ibu
+                                </option>
+                                <option @if (old('hubunganKeluarga') === 'Kakak') selected @endif value="Kakak">
+                                    Kakak
+                                </option>
+                                <option @if (old('hubunganKeluarga') === 'Paman') selected @endif value="Paman">
+                                    Paman
+                                </option>
+                                <option @if (old('hubunganKeluarga') === 'Ayah') Lainnya @endif value="Lainnya">
+                                    Lainnya
+                                </option>
+                            </select>
+                            @error('hubunganKeluarga')
+                                <p class="text-xs text-red-400">*{{ $message }}</p>
+                            @enderror
+                        </label>
+                    </div>
+
+                    <div class="w-full">
+                        <div class="label">
+                            <span class="label-text font-semibold">Alamat</span>
+                        </div>
+
+                        <textarea name="alamat" class="border w-full p-3 rounded-lg outline-none h-28" placeholder="Alamat">{{ old('alamat') }}</textarea>
+                        @error('alamat')
+                            <p class="text-xs text-red-400">*{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="mt-10 w-full flex justify-end col-span-2">
+                        <button class="btn btn-neutral w-40">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection
