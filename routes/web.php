@@ -27,11 +27,10 @@ Route::get('/logout', [UserController::class, 'logout']);
 
 Route::get('/home', [PegawaiController::class, 'homePegawaiView']);
 
-Route::get('/home/input-nilai-pts/{idKelasMapel}/{idKelas}', [RekapNilaiController::class, 'inputPTS']);
-Route::post('/home/input-nilai-pts/{idKelasMapel}/{idKelas}', [RekapNilaiController::class, 'handleInputRekapPTS']);
-
-Route::get('/home/input-nilai-pas/{idKelasMapel}/{idKelas}', [RekapNilaiController::class, 'inputPAS']);
-Route::post('/home/input-nilai-pas/{idKelasMapel}/{idKelas}', [RekapNilaiController::class, 'handleInputRekapPAS']);
+Route::get('/home/siswa/{idKelas}/{idSiswa}', [RekapNilaiController::class, 'rekapNilaiPerSiswa']);
+Route::post('/home/siswa/{idKelas}/{idSiswa}', [RekapNilaiController::class, 'setKenaikanKelas']);
+Route::get('/home/siswa/{idKelas}/{idSiswa}/raport', [RekapNilaiController::class, 'cetakRaportSiswa']);
+Route::get('/home/kelas/{idKelasMapel}', [RekapNilaiController::class, 'kelasSiswaView']);
 
 Route::get('/dashboard', [ProfileController::class, 'getProfile']);
 Route::post('/dashboard/tambah-logo', [ProfileController::class, 'addLogo']);
@@ -60,6 +59,7 @@ Route::get('/dashboard/siswa', [SiswaController::class, 'listSiswa']);
 Route::get('/dashboard/siswa/tambah-siswa', [SiswaController::class, 'addSiswaView']);
 Route::post('/dashboard/siswa/tambah-siswa', [SiswaController::class, 'handleAddSiswa']);
 Route::get('/dashboard/siswa/detail/{idSiswa}', [SiswaController::class, 'detailSiswa'])->name('detailSiswa');
+Route::get('/dashboard/siswa/detail/{idSiswa}/raport/{idKelas}', [SiswaController::class, 'detailRaportSiswa']);
 Route::get('/dashboard/siswa/detail/edit/{idSiswa}', [SiswaController::class, 'editSiswaView']);
 Route::post('/dashboard/siswa/detail/edit/{idSiswa}', [SiswaController::class, 'handleEditSiswa']);
 

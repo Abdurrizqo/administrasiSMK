@@ -67,7 +67,6 @@ class TambahMapelKelas extends Component
                 'semester' => $this->semester,
             ]);
 
-            Kelas::where('idKelas', $this->idKelas)->update(['isSync' => false]);
             $this->messageSuccess = 'Tambah Mapel Berhasil';
             $this->stateGuru = null;
             $this->stateMapel = null;

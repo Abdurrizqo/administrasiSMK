@@ -60,7 +60,7 @@
     @endisset
 
     @isset($messageError)
-        <div role="alert" class="alert alert-success mb-8 text-white font-semibold">
+        <div role="alert" class="alert alert-error mb-8 text-white font-semibold">
             <span>{{ $messageError }}</span>
         </div>
     @endisset

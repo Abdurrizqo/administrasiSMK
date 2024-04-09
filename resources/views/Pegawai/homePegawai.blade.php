@@ -1,63 +1,56 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    @vite('resources/css/app.css')
-
-    <title>Laravel</title>
-</head>
-
-<body class="flex justify-center">
-    <div class="w-[48rem] my-8">
-
-        <div class="card border shadow-md rounded-md">
-            <div class="p-8">
-
-                <div class="flex items-center">
-                    <div class="flex-1">
-                        <h1 class="text-xl font-bold">{{ $dataPegawai['namaPegawai'] }}</h1>
-                        <p class="text-gray-400 font-light">{{ $dataPegawai['nipy'] }}</p>
-                    </div>
-
-                    <button class="btn btn-error text-white">Keluar</button>
-                </div>
-
-                <div class="divider"></div>
-
-                @if (count($waliKelas) > 0)
-                    <div class="w-full">
-                        <h1 class="text-xl font-bold">Wali Kelas {{ $waliKelas[0]['namaKelas'] }}</h1>
-                        <p class="text-gray-400 font-light">{{ $waliKelas[0]['tahunAjaran'] }} -
-                            {{ $waliKelas[0]['semester'] }}</p>
-                    </div>
-
-                    <a href="" class="btn btn-neutral text-white mt-8 w-full">Periksa Kelas</a>
+@extends('layouts.layoutPegawai')
+@section('content')
+    <div class="flex h-[100vh] gap-10 pt-28 px-8 pb-10">
+        <div class="min-w-[20rem] max-w-[20rem] flex flex-col gap-6">
+            <div class="border rounded-lg bg-white p-4 h-32 flex flex-col items-center justify-center">
+                @if ($waliKelas)
+                    <h1 class="text-lg poppins-bold text-center">Kelas {{ $waliKelas->namaKelas }}</h1>
+                    <h1 class="text-lg poppins-regular text-gray-400 text-center mt-3">{{ $profileSekolah->tahunAjaran }} -
+                        {{ $profileSekolah->semester }}</h1>
+                @else
+                    <h1 class="text-lg poppins-bold text-center text-gray-500">Tidak Terdaftar Sebagai Wali Kelas</h1>
                 @endif
             </div>
-        </div>
 
-        <div class="card border shadow-md rounded-md mt-10">
-            <div class="p-8">
-                @foreach ($mapel as $item)
-                    <div class="p-3 rounded-md border shadow mb-5 flex justify-center">
-                        <div class="flex-1">
-                            <h1 class="font-semibold">{{ $item['dataKelas']['namaKelas'] }}</h1>
-                            <p class="text-gray-400">{{ $item['dataMapel']['namaMataPelajaran'] }}</p>
-                        </div>
+            <div class="border rounded-lg bg-white p-4 flex-grow overflow-auto">
+                <h1 class="mb-5 text-xl poppins-bold">Daftar Kelas</h1>
 
-                        <div class="flex gap-4 items-center w-72 justify-between">
-                            <a href="home/input-nilai-pts/{{ $item['idKelasMapel'] }}/{{$item['kelas']}}" class="btn btn-neutral">Input Nilai
-                                PTS</a>
-                            <a href="home/input-nilai-pas/{{ $item['idKelasMapel'] }}/{{$item['kelas']}}" class="btn btn-neutral">Input Nilai
-                                PAS</a>
-                        </div>
-                    </div>
+                @foreach ($kelasDiampu as $item)
+                    <a href="home/kelas/{{$item->idKelasMapel}}" class="p-3 rounded-md border shadow mb-4 block">
+                        <h3 class="text-lg poppins-medium">{{ $item->namaKelas }}</h3>
+                        <p class="text-gray-500">{{ $item->namaMataPelajaran }}</p>
+                    </a>
                 @endforeach
             </div>
         </div>
-    </div>
-</body>
 
-</html>
+        <div class="flex-grow flex flex-col gap-6">
+            <div class="flex-grow h-full bg-white rounded-lg border p-4 overflow-auto">
+                <h1 class="mb-5 text-xl poppins-bold">Daftar Siswa</h1>
+
+                <div class="flex flex-wrap gap-5 justify-start items-start">
+                    @if ($siswa)
+                        @foreach ($siswa as $item)
+                            <a href="home/siswa/{{ $waliKelas->idKelas }}/{{ $item->idSiswa }}"
+                                class="border shadow mb-4 rounded-xl w-[20rem] btn-click">
+                                <div class="w-full bg-gray-700 px-3 py-2 text-white rounded-t-xl flex justify-end">
+                                </div>
+
+                                <div class="px-8 py-4 flex justify-end items-center">
+                                    <div class="flex-1">
+                                        <h1 class="poppins-semibold text-lg">{{ $item->namaSiswa }}</h1>
+                                        <p class="poppins-light text-gray-400">NIS : {{ $item->nis }}</p>
+                                        <p class="poppins-light text-gray-400">NISN : {{ $item->nisn }}</p>
+                                    </div>
+                                </div>
+
+                            </a>
+                        @endforeach
+                    @else
+                        <div></div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

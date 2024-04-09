@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelas;
 use App\Models\KelasMapel;
+use App\Models\KelasSiswa;
 use App\Models\Pegawai;
 use App\Models\ProfilSekolah;
 use App\Models\RekapPas;
@@ -19,9 +20,9 @@ class PegawaiController extends Controller
     {
         $search = $request->query('search');
         if (empty($search)) {
-            $pegawai = Pegawai::with('user')->paginate(10);
+            $pegawai = Pegawai::with('user')->orderBy('namaPegawai', 'asc')->paginate(10);
         } else {
-            $pegawai = Pegawai::where('namaPegawai', 'like', "%$search%")->with('user')->paginate(10)->withQueryString();
+            $pegawai = Pegawai::where('namaPegawai', 'like', "%$search%")->orderBy('namaPegawai', 'asc')->with('user')->paginate(10)->withQueryString();
         }
 
         return view('Pegawai/pegawai', ['pegawai' => $pegawai]);
@@ -111,9 +112,27 @@ class PegawaiController extends Controller
     {
         $user = Auth::user();
         $profile = ProfilSekolah::first();
-        $dataPegawai = Pegawai::where('idPegawai', $user['idPegawai'])->first();
-        $mataPelajaran = KelasMapel::where('tahunAjaran', $profile['tahunAjaran'])->where('semester', $profile['semester'])->where('guruMapel', $user['idPegawai'])->with('dataKelas')->with('dataMapel')->get();
-        $waliKelas = Kelas::where('waliKelas', $user['idPegawai'])->where('tahunAjaran', $profile['tahunAjaran'])->where('semester', $profile['semester'])->get();
-        return view('Pegawai/homePegawai', ['dataPegawai' => $dataPegawai, 'waliKelas' => $waliKelas, 'mapel' => $mataPelajaran]);
+        $mataPelajaran = KelasMapel::select(['kelas', 'idKelasMapel', 'mapel', 'mata_pelajaran.namaMataPelajaran', 'kelas.namaKelas'])
+            ->where('tahunAjaran', $profile['tahunAjaran'])
+            ->where('semester', $profile['semester'])
+            ->where('guruMapel', $user['idPegawai'])
+            ->leftJoin('kelas', 'kelas.idKelas', '=', 'kelas_mapel.kelas')
+            ->leftJoin('mata_pelajaran', 'mata_pelajaran.idMataPelajaran', '=', 'kelas_mapel.mapel')
+            ->get();
+
+        $waliKelas = Kelas::select(['namaKelas', 'idKelas'])
+            ->where('waliKelas', $user['idPegawai'])
+            ->where('tahunAjaran', $profile['tahunAjaran'])
+            ->first();
+
+        $siswa = null;
+        if ($waliKelas) {
+            $siswa = KelasSiswa::select(['siswa.namaSiswa', 'siswa.nis', 'siswa.nisn', 'kelas_siswa.idSiswa'])
+                ->where('idKelas', $waliKelas['idKelas'])
+                ->leftJoin('siswa', 'siswa.idSiswa', '=', 'kelas_siswa.idSiswa')
+                ->get();
+        }
+
+        return view('Pegawai/homePegawai', ['kelasDiampu' => $mataPelajaran, 'waliKelas' => $waliKelas, 'siswa' => $siswa, 'profileSekolah' => $profile]);
     }
 }

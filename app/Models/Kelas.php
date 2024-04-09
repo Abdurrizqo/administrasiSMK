@@ -19,7 +19,6 @@ class Kelas extends Model
         'waliKelas',
         'namaKelas',
         'tahunAjaran',
-        'isSync'
     ];
 
     public function wali()

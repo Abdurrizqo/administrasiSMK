@@ -1,4 +1,4 @@
-    <div class="card p-10 border rounded-md bg-white mt-10 h-[40rem] overflow-hidden">
+    <div class="card p-10 border rounded-md bg-white mt-10 h-[80rem] overflow-hidden">
 
         @if ($isModalDeleteOpen)
             <div class="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center">

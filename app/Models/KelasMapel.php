@@ -23,7 +23,6 @@ class KelasMapel extends Model
         'kelas',
         'guruMapel',
         'mapel',
-        'tahunAjaran',
         'semester'
     ];
 

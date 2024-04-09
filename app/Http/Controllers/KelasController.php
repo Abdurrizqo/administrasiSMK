@@ -35,7 +35,6 @@ class KelasController extends Controller
                 'namaKelas',
                 'tahunAjaran',
                 'namaPegawai',
-                'isSync'
             ])
                 ->leftJoin('pegawai', 'pegawai.idPegawai', '=', 'kelas.waliKelas')
                 ->paginate(10);
@@ -46,7 +45,6 @@ class KelasController extends Controller
                 'waliKelas',
                 'namaKelas',
                 'tahunAjaran',
-                'isSync',
                 'namaPegawai'
             ])
                 ->leftJoin('pegawai', 'pegawai.idPegawai', '=', 'kelas.waliKelas');

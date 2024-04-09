@@ -6,33 +6,23 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class KelasSiswa extends Model
+class Ekskul extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $table = 'kelas_siswa';
-    protected $primaryKey = 'idKelasSiswa';
+    protected $table = 'kelas_ekskul';
+
+    protected $primaryKey = 'idEkskul';
+
     public $incrementing = false;
+
     protected $keyType = 'string';
-    public $timestamps = true;
 
     protected $fillable = [
-        'idKelasSiswa',
         'idKelas',
         'idSiswa',
-        'status',
-        'totalHadirGanjil',
-        'totalSakitGanjil',
-        'totalTanpaKeteranganGanjil',
-        'totalIzinGanjil',
-        'totalHadirGenap',
-        'totalSakitGenap',
-        'totalTanpaKeteranganGenap',
-        'totalIzinGenap',
-        'keteranganAkhirGanjilPTS',
-        'keteranganAkhirGanjilPAS',
-        'keteranganAkhirGenapPTS',
-        'keteranganAkhirGenapPAS'
+        'namaEkskul',
+        'nilai'
     ];
 
     public function kelas()

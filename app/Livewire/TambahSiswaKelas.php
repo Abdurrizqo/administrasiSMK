@@ -93,7 +93,6 @@ class TambahSiswaKelas extends Component
                 'idSiswa' => $idSiswa,
             ]);
 
-            Kelas::find($this->idKelas)->update(['isSync' => false]);
             DB::commit();
 
             $this->successMsg = 'Siswa Berhasil Ditambahkan';

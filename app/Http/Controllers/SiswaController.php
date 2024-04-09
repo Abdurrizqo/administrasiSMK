@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ekskul;
 use App\Models\Jurusan;
 use App\Models\Kelas;
+use App\Models\KelasMapel;
+use App\Models\KelasSiswa;
 use App\Models\RekapPas;
 use App\Models\RekapPts;
 use App\Models\Siswa;
@@ -24,7 +27,7 @@ class SiswaController extends Controller
 
     public function addSiswaView()
     {
-        $jurusan = Jurusan::get();
+        $jurusan = Jurusan::where('isActive', true)->get();
         return view('Siswa/tambahSiswa', ['jurusan' => $jurusan]);
     }
 
@@ -53,14 +56,67 @@ class SiswaController extends Controller
     public function detailSiswa($idSiswa)
     {
         $siswa = Siswa::where('idSiswa', $idSiswa)->with('jurusan')->first();
-        $kelas = RekapPts::where('siswa', $idSiswa)
-            ->select('kelas.namaKelas', 'kelas.waliKelas', 'kelas.tahunAjaran', 'kelas.semester')
-            ->leftJoin('kelas', 'kelas.idKelas', '=', 'rekap_pts.kelas')
-            ->groupBy('kelas.namaKelas', 'kelas.waliKelas', 'kelas.tahunAjaran', 'kelas.semester')
+
+        $kelas = KelasSiswa::select(['idKelasSiswa', 'kelas_siswa.idKelas', 'namaKelas', 'tahunAjaran', 'waliKelas', 'namaPegawai', 'kelas_siswa.status', 'kelas_siswa.idSiswa'])
+            ->where('idSiswa', $idSiswa)
+            ->leftJoin('kelas', 'kelas.idKelas', '=', 'kelas_siswa.idKelas')
+            ->leftJoin('pegawai', 'pegawai.idPegawai', '=', 'kelas.waliKelas')
+            ->orderBy('tahunAjaran', 'desc')
             ->get();
 
-        // return response()->json($kelas);
+
         return view('Siswa/detailSiswa', ['siswa' => $siswa, 'kelas' => $kelas]);
+    }
+
+    public function detailRaportSiswa($idSiswa, $idKelas, Request $request)
+    {
+
+        $semester = $request->query('semester') === "GENAP" ? "GENAP" : "GANJIL";
+
+        if ($semester === "GANJIL") {
+            $selectAbsen = ['kelas_siswa.idSiswa', 'namaSiswa', 'nis', 'nisn', 'fotoSiswa', 'kelas_siswa.status', 'totalHadirGanjil as totalHadir', 'totalSakitGanjil as totalSakit', 'totalTanpaKeteranganGanjil as totalTanpaKeterangan', 'totalIzinGanjil as totalIzin', 'keteranganAkhirGanjilPAS as catatanPas'];
+        } else {
+            $selectAbsen = ['kelas_siswa.idSiswa', 'namaSiswa', 'nis', 'nisn', 'fotoSiswa', 'kelas_siswa.status', 'totalHadirGenap as totalHadir', 'totalSakitGenap as totalSakit', 'totalTanpaKeteranganGenap as totalTanpaKeterangan', 'totalIzinGenap as totalIzin', 'keteranganAkhirGenapPAS as catatanPas'];
+        }
+
+        $siswa = KelasSiswa::select($selectAbsen)
+            ->where("kelas_siswa.idSiswa", $idSiswa)
+            ->where("idKelas", $idKelas)
+            ->leftJoin('siswa', 'siswa.idSiswa', '=', 'kelas_siswa.idSiswa')
+            ->first();
+
+        $rekapMapel = KelasMapel::where('kelas_mapel.kelas', $idKelas)
+            ->where('semester', $semester)
+            ->leftJoin('mata_pelajaran', 'mata_pelajaran.idMataPelajaran', '=', 'kelas_mapel.mapel')
+            ->get();
+
+        $pas = RekapPas::where('kelas', $idKelas)
+            ->where('semester', $semester)
+            ->where('siswa', $idSiswa)
+            ->get();
+
+        $listEkskul = Ekskul::where('idKelas', $idKelas)->where('idSiswa', $idSiswa)->get();
+
+        $totalNilai = RekapPas::where('semester', $semester)
+            ->where('siswa', $idSiswa)
+            ->where('kelas', $idKelas)
+            ->selectRaw('SUM(nilaiAkademik) as totalAkademik, SUM(nilaiKeterampilan) as totalKeterampilan')
+            ->first();
+
+        $totalMapel = count($rekapMapel);
+        $avgAkademik = round($totalNilai->totalAkademik / $totalMapel, 2);
+        $avgKeterampilan = round($totalNilai->totalKeterampilan / $totalMapel, 2);
+
+
+        return view('Siswa/raportSiswa', [
+            'siswa' => $siswa,
+            'ekskul' => $listEkskul,
+            'rekapMapel' => $rekapMapel,
+            'pas' => $pas,
+            'totalNilai' => $totalNilai,
+            'avgAkademik' => $avgAkademik,
+            'avgKeterampilan' => $avgKeterampilan
+        ]);
     }
 
     public function editSiswaView($idSiswa)

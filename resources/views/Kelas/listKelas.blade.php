@@ -163,7 +163,6 @@
                         <th class="text-center">Tahun Ajaran</th>
                         <th class="text-center">Wali Kelas</th>
                         <th class="text-center">Nama Kelas</th>
-                        <th class="text-center">Sinkron</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -174,13 +173,6 @@
                             <td class="text-center">{{ $item['tahunAjaran'] }}</td>
                             <td class="">{{ $item['namaPegawai'] }}</td>
                             <td class="">{{ $item['namaKelas'] }}</td>
-                            <td class="text-center">
-                                @if ($item['isSync'] === 1)
-                                    <p class="text-green-400">Sinkron</p>
-                                @else
-                                    <p class="text-red-400">Belum Tersinkron</p>
-                                @endif
-                            </td>
                         </tr>
                     @endforeach
                 </tbody>

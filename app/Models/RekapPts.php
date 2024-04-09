@@ -24,7 +24,6 @@ class RekapPts extends Model
         'kelas',
         'siswa',
         'semester',
-        'tahunAjaran',
         'nilaiAkademik',
         'terbilangNilaiAkademik',
         'nilaiKeterampilan',

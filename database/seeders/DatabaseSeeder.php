@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder
 
         Pegawai::where('idPegawai', $dataPegawai['idPegawai'])->update(['idUser' => $dataUser['idUser']]);
 
-        Pegawai::factory()->count(20)->create();
+        Pegawai::factory()->count(100)->create();
 
         Jurusan::insert([
             [
@@ -115,6 +115,6 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
-        Siswa::factory()->count(120)->create();
+        Siswa::factory()->count(600)->create();
     }
 }

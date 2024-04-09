@@ -15,6 +15,24 @@ return new class extends Migration
             $table->uuid('idKelasSiswa')->primary();
             $table->uuid('idKelas');
             $table->uuid('idSiswa');
+            $table->enum('status', ['NAIK KELAS', 'TINGGAL KELAS'])->nullable(true);
+
+            $table->integer('totalHadirGanjil')->default(0);
+            $table->integer('totalSakitGanjil')->default(0);
+            $table->integer('totalTanpaKeteranganGanjil')->default(0);
+            $table->integer('totalIzinGanjil')->default(0);
+
+            $table->integer('totalHadirGenap')->default(0);
+            $table->integer('totalSakitGenap')->default(0);
+            $table->integer('totalTanpaKeteranganGenap')->default(0);
+            $table->integer('totalIzinGenap')->default(0);
+
+            $table->longText('keteranganAkhirGanjilPTS')->nullable(true);
+            $table->longText('keteranganAkhirGanjilPAS')->nullable(true);
+
+            $table->longText('keteranganAkhirGenapPTS')->nullable(true);
+            $table->longText('keteranganAkhirGenapPAS')->nullable(true);
+
             $table->foreign('idKelas')->references('idKelas')->on('kelas')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('idSiswa')->references('idSiswa')->on('siswa')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

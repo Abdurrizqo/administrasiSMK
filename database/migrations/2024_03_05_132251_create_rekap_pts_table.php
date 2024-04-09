@@ -17,9 +17,9 @@ return new class extends Migration
             $table->uuid('kelasMapel');
             $table->uuid('siswa');
             $table->enum('semester', ['GENAP', 'GANJIL']);
-            $table->decimal('nilaiAkademik', $precision = 3, $scale = 2)->default(0);
+            $table->decimal('nilaiAkademik', $precision = 5, $scale = 2)->default(0);
             $table->string('terbilangNilaiAkademik')->default('Nol');
-            $table->decimal('nilaiKeterampilan', $precision = 3, $scale = 2)->default(0);
+            $table->decimal('nilaiKeterampilan', $precision = 5, $scale = 2)->default(0);
             $table->string('terbilangNilaiKeterampilan')->default('Nol');
             $table->longText('keterangan')->nullable(true);
             $table->foreign('kelas')->references('idKelas')->on('kelas')->onDelete('cascade')->onUpdate('cascade');

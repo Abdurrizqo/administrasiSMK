@@ -16,7 +16,6 @@ return new class extends Migration
             $table->uuid('waliKelas');
             $table->string('namaKelas');
             $table->string('tahunAjaran');
-            $table->boolean('isSync')->default(true);
             $table->foreign('waliKelas')->references('idPegawai')->on('pegawai')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
