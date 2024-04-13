@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AgendaSuratController;
+use App\Http\Controllers\DisposisiController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
@@ -70,3 +72,8 @@ Route::get('/dashboard/kelas/detail/{idKelas}/genap', [KelasController::class, '
 Route::get('/dashboard/kelas/detail/{idKelas}/tambah-siswa', [KelasController::class, 'tambahSiswaKelas']);
 Route::post('/dashboard/kelas/edit', [KelasController::class, 'handleEditKelas']);
 Route::get('/dashboard/kelas/delete/{idKelas}', [KelasController::class, 'deleteKelas']);
+
+Route::get('/dashboard/agenda-surat-masuk', [AgendaSuratController::class, 'getAllAgendaSuratMasuk']);
+Route::get('/dashboard/agenda-surat-keluar', [AgendaSuratController::class, 'getAllAgendaSuratKeluar']);
+
+Route::get('/dashboard/disposisi-surat', [DisposisiController::class, 'listDisposisiSurat']);

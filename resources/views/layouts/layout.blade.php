@@ -103,6 +103,33 @@
 
                     <p class="inline-block flex-1">Kelas</p>
                 </a>
+
+                <a href="/dashboard/agenda-surat-masuk"
+                    class="hover:bg-gray-700 p-3 rounded-md cursor-pointer flex gap-3 items-center">
+                    <span class="material-icons inline-block w-8">
+                        email
+                    </span>
+
+                    <p class="inline-block flex-1">Surat Masuk</p>
+                </a>
+
+                <a href="/dashboard/agenda-surat-keluar"
+                    class="hover:bg-gray-700 p-3 rounded-md cursor-pointer flex gap-3 items-center">
+                    <span class="material-icons inline-block w-8">
+                        drafts
+                    </span>
+
+                    <p class="inline-block flex-1">Surat Keluar</p>
+                </a>
+
+                <a href="/dashboard/disposisi-surat"
+                    class="hover:bg-gray-700 p-3 rounded-md cursor-pointer flex gap-3 items-center">
+                    <span class="material-icons inline-block w-8">
+                        share
+                    </span>
+
+                    <p class="inline-block flex-1">Disposisi Surat</p>
+                </a>
             </div>
         </div>
 

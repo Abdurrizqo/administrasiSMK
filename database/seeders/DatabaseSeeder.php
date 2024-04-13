@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\AgendaSurat;
 use App\Models\Jurusan;
 use App\Models\MataPelajaran;
 use App\Models\Pegawai;
@@ -116,5 +117,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Siswa::factory()->count(600)->create();
+        AgendaSurat::factory()->count(1000)->create();
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AgendaSuratController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
@@ -26,3 +27,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/rekap-pts/{idRekapPts}', [RekapNilaiController::class, 'handleInputRekapPTS']);
 Route::post('/rekap-pas/{idRekapPas}', [RekapNilaiController::class, 'handleInputRekapPAS']);
+Route::get('/surat-masuk', [AgendaSuratController::class, 'getAllAgendaSuratMasuk']);
+Route::get('/surat-keluar', [AgendaSuratController::class, 'getAllAgendaSuratKeluar']);
+Route::post('/buat-agenda', [AgendaSuratController::class, 'createNewAgenda']);
