@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DisposisiSurat;
 use App\Models\Kelas;
 use App\Models\KelasMapel;
 use App\Models\KelasSiswa;
@@ -133,6 +134,8 @@ class PegawaiController extends Controller
                 ->get();
         }
 
-        return view('Pegawai/homePegawai', ['kelasDiampu' => $mataPelajaran, 'waliKelas' => $waliKelas, 'siswa' => $siswa, 'profileSekolah' => $profile]);
+        $disposisi = DisposisiSurat::where('tujuan', $user->idPegawai)->get();
+
+        return view('Pegawai/homePegawai', ['kelasDiampu' => $mataPelajaran, 'waliKelas' => $waliKelas, 'siswa' => $siswa, 'profileSekolah' => $profile, 'disposisi' => $disposisi]);
     }
 }

@@ -3,7 +3,7 @@
         <div class="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center z-40">
             <div class="w-[40rem] bg-white p-5 rounded-xl">
                 <h1 class="text-center text-lg font-medium mb-8">Catat Surat Keluar</h1>
-                <form wire:submit.prevent="simpanAgendaSuratKeluar" class="h-[28rem] overflow-auto">
+                <form wire:submit.prevent="simpanAgendaSuratKeluar" class="h-[28rem] overflow-auto modalScroll p-4">
                     <div class="flex gap-4 items-center mb-4">
                         <label class="form-control w-full">
                             <div class="label">

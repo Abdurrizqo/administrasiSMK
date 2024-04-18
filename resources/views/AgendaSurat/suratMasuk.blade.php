@@ -1,8 +1,8 @@
 @extends('layouts.layout')
 @section('content')
-    <div class="w-full p-10 flex-1 bg-white">
+    <div class="w-full">
         <div class="flex w-full mb-10 justify-between gap-y-4 items-center flex-wrap">
-            <h1 class="text-2xl font-bold">Agenda Surat Masuk</h1>
+            <h1 class="text-2xl font-bold min-w-[32rem]">Agenda Surat Masuk</h1>
             <livewire:form-agenda-surat-masuk />
 
         </div>
@@ -19,8 +19,8 @@
             </div>
         @endif
 
-        <div class="flex justify-between w-full">
-            <form class="flex gap-4" method="GET">
+        <div class="w-full">
+            <form class="flex flex-wrap gap-4" method="GET">
                 <div class="flex gap-4 items-center">
                     <input required type="date" name="tanggalAwal" class="input input-bordered w-52" />
                     <p class="text-lg poppins-medium">-</p>
@@ -33,8 +33,8 @@
             </form>
         </div>
 
-        <div class="overflow-x-auto mt-12 rounded-lg border">
-            <table class="table table-zebra">
+        <div class="overflow-x-auto mt-12 rounded-lg border w-full bg-white p-4 text-xs md:text-sm lg:text-base">
+            <table class="table table-zebra table-auto">
                 <thead>
                     <tr>
                         <th class="text-center">No</th>
@@ -56,10 +56,17 @@
                             <td>{{ $item->nomerSurat }}</td>
                             <td>{{ $item->asalTujuanSurat }}</td>
                             <td>{{ $item->perihal }}</td>
-                            <td><a href="#" class="material-icons text-gray-800 btn-click md-36">
+                            <td><a target="_blank" href="{{ route('dokumenFile.download', ['filename' => basename($item->dokumenSurat)]) }}"
+                                    class="material-icons text-gray-800 btn-click md-36">
                                     description
                                 </a></td>
-                            <td><livewire:form-disposisi-surat :idAgendaSurat="$item->idAgendaSurat" /></td>
+                            <td>
+                                @if ($item->hasDisposisi)
+                                    <p class="text-center poppins-medium text-gray-500">Telah Di Disposisikan</p>
+                                @else
+                                    <livewire:form-disposisi-surat :idAgendaSurat="$item->idAgendaSurat" />
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

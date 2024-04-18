@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreign('idJurusan')->references('idJurusan')->on('jurusan')->onDelete('cascade')->onUpdate('cascade');
             $table->enum('status', ['aktif', 'pindah', 'lulus'])->default('aktif');
             $table->year('tahunLulus')->nullable(true);
+            $table->year('tahunPindah')->nullable(true);
             $table->string('fotoSiswa')->nullable();
             $table->string('nikWali', 28);
             $table->string('namaWali');

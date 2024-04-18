@@ -22,7 +22,7 @@
 
 @extends('layouts.layout')
 @section('content')
-    <div class="w-full bg-gray-100 p-10">
+    <div class="w-full bg-gray-100">
         @if (session('success'))
             <div role="alert" class="alert alert-success mb-8 text-white font-medium">
                 <span>{{ session('success') }}</span>
@@ -189,53 +189,6 @@
                 </div>
             @endisset
 
-
-        </div>
-
-        <div class="flex gap-12 items-center justify-center flex-wrap my-16">
-
-            <div class="card w-48 bg-neutral text-white">
-                <div class="p-6">
-                    <h2 class="text-center poppins-medium">Jumlah Siswa</h2>
-                    <h1 class="text-center poppins-semibold text-2xl">{{ $totalSiswa }}</h1>
-                </div>
-            </div>
-
-            <div class="card w-48 bg-neutral text-white">
-                <div class="p-6">
-                    <h2 class="text-center poppins-medium">Jumlah Pegawai</h2>
-                    <h1 class="text-center poppins-semibold text-2xl">{{ $totalGuru }}</h1>
-                </div>
-            </div>
-
-            <div class="card w-48 bg-neutral text-white">
-                <div class="p-6">
-                    <h2 class="text-center poppins-medium">Semester</h2>
-                    <h1 class="text-center poppins-semibold text-2xl">
-                        @empty($profile)
-                            -
-                        @endempty
-
-                        @isset($profile)
-                            {{ $profile['semester'] }}
-                        @endisset
-                    </h1>
-                </div>
-            </div>
-
-            <div class="card w-48 bg-neutral text-white">
-                <div class="p-6">
-                    <h2 class="text-center poppins-medium">Tahun Ajaran</h2>
-                    <h1 class="text-center poppins-semibold text-2xl">
-                        @empty($profile)
-                            -
-                        @endempty
-
-                        @isset($profile)
-                            {{ $profile['tahunAjaran'] }}</h1>
-                    @endisset
-                </div>
-            </div>
 
         </div>
     </div>

@@ -5,13 +5,16 @@
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "barryvdh/laravel-dompdf": "^2.1",
+        "beyondcode/laravel-websockets": "^1.14",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
-        "livewire/livewire": "^3.4"
+        "livewire/livewire": "^3.4",
+        "pusher/pusher-php-server": "^7.2",
+        "rap2hpoutre/fast-excel": "^5.4"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.10",

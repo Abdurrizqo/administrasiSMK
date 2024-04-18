@@ -15,9 +15,9 @@ class AgendaSuratController extends Controller
         $filterTanggalAkhir = $request->query('tanggalAkhir');
 
         if ($filterTanggalAwal && $filterTanggalAkhir) {
-            $listAgendaSurat = AgendaSurat::where("statusSurat", "MASUK")->whereBetween("tanggalAgenda", [$filterTanggalAwal, $filterTanggalAkhir])->orderBy("tanggalAgenda", 'desc')->paginate(10);
+            $listAgendaSurat = AgendaSurat::where("statusSurat", "MASUK")->whereBetween("tanggalAgenda", [$filterTanggalAwal, $filterTanggalAkhir])->orderBy("created_at", 'desc')->paginate(10);
         } else {
-            $listAgendaSurat = AgendaSurat::where("statusSurat", "MASUK")->orderBy("tanggalAgenda", 'desc')->paginate(10);
+            $listAgendaSurat = AgendaSurat::where("statusSurat", "MASUK")->orderBy("created_at", 'desc')->paginate(10);
         }
 
         return view('AgendaSurat/suratMasuk', ['listAgenda' => $listAgendaSurat]);
@@ -29,33 +29,22 @@ class AgendaSuratController extends Controller
         $filterTanggalAkhir = $request->query('tanggalAkhir');
 
         if ($filterTanggalAwal && $filterTanggalAkhir) {
-            $listAgendaSurat = AgendaSurat::where("statusSurat", "KELUAR")->whereBetween("tanggalAgenda", [$filterTanggalAwal, $filterTanggalAkhir])->orderBy("tanggalAgenda", 'desc')->paginate(10);
+            $listAgendaSurat = AgendaSurat::where("statusSurat", "KELUAR")->whereBetween("tanggalAgenda", [$filterTanggalAwal, $filterTanggalAkhir])->orderBy("created_at", 'desc')->paginate(10);
         } else {
-            $listAgendaSurat = AgendaSurat::where("statusSurat", "KELUAR")->orderBy("tanggalAgenda", 'desc')->paginate(10);
+            $listAgendaSurat = AgendaSurat::where("statusSurat", "KELUAR")->orderBy("created_at", 'desc')->paginate(10);
         }
 
         return view('AgendaSurat/suratKeluar', ['listAgenda' => $listAgendaSurat]);
-
     }
 
-    public function disposisiSurat(Request $request)
+    public function downloadFileOnDokumen($filename)
     {
-        $validate = $request->validate(
-            [
-                'idAgendaSurat' => 'required|string|exists:agenda_surat,idAgendaSurat',
-                'arahan' => 'required|string',
-                'judulDisposisi' => 'required|string|max:80',
-                'tujuan' => 'required|string|exists:pegawai,idPegawai'
-            ]
-        );
+        $path = storage_path('app/dokumenSurat/' . $filename);
 
-        $disposisiSurat = DisposisiSurat::create(
-            [
-                'idAgendaSurat' => $validate['idAgendaSurat'],
-                'arahan' => $validate['arahan'],
-                'arahan' => $validate['judulDisposisi'],
-                'tujuan' => $validate['tujuan'],
-            ]
-        );
+        if (file_exists($path)) {
+            return response()->download($path);
+        } else {
+            abort(404, 'File not found');
+        }
     }
 }

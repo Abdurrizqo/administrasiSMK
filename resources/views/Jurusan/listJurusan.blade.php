@@ -37,7 +37,7 @@
 
 @extends('layouts.layout')
 @section('content')
-    <div class="w-full bg-white p-10">
+    <div class="w-full">
         <div class="mb-10">
             <h1 class="text-2xl font-bold">Data Program Keahlian</h1>
         </div>
@@ -55,18 +55,18 @@
         @endif
 
         <div class="w-full">
-            <form class="flex gap-4" method="POST">
+            <form class="flex items-center flex-wrap gap-4" method="POST">
                 @csrf
                 <input type="text" placeholder="Tambah Nama Jurusan" name="namaJurusan"
-                    class="border px-3 rounded-full min-w-96 outline-none" />
-                <button type="submit" class="btn-outline btn border border-neutral rounded-full w-28">Simpan</button>
+                    class="border p-3 rounded-full min-w-72 max-w-96 outline-none" />
+                <button type="submit" class="btn-outline btn border border-neutral rounded-full w-20">Simpan</button>
             </form>
             @error('namaJurusan')
                 <p class="text-xs text-red-400">*{{ $message }}</p>
             @enderror
         </div>
 
-        <div class="overflow-x-auto mt-12 rounded-lg border">
+        <div class="overflow-x-auto mt-12 rounded-lg border bg-white p-4 text-xs md:text-sm lg:text-base">
             <table class="table table-zebra">
                 <thead>
                     <tr>

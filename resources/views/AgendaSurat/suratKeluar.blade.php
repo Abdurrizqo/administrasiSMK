@@ -1,8 +1,8 @@
 @extends('layouts.layout')
 @section('content')
-    <div class="w-full p-10 flex-1 bg-white">
+    <div class="w-full">
         <div class="flex w-full mb-10 justify-between gap-y-4 items-center flex-wrap">
-            <h1 class="text-2xl font-bold">Agenda Surat Keluar</h1>
+            <h1 class="text-2xl font-bold min-w-[32rem]">Agenda Surat Keluar</h1>
             <livewire:form-agenda-surat-keluar />
         </div>
 
@@ -18,8 +18,8 @@
             </div>
         @endif
 
-        <div class="flex justify-between w-full">
-            <form class="flex gap-4" method="GET">
+        <div class="w-full">
+            <form class="flex flex-wrap gap-4" method="GET">
                 <div class="flex gap-4 items-center">
                     <input required type="date" name="tanggalAwal" class="input input-bordered w-52" />
                     <p class="text-lg poppins-medium">-</p>
@@ -32,7 +32,7 @@
             </form>
         </div>
 
-        <div class="overflow-x-auto mt-12 rounded-lg border">
+        <div class="overflow-x-auto mt-12 rounded-lg border w-full bg-white p-4 text-xs md:text-sm lg:text-base">
             <table class="table table-zebra">
                 <thead>
                     <tr>
@@ -43,7 +43,6 @@
                         <th class="text-center">Asal Surat</th>
                         <th class="text-center">Perihal</th>
                         <th class="text-center">Dokumen</th>
-                        <th class="text-center">Disposisi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,10 +54,11 @@
                             <td>{{ $item->nomerSurat }}</td>
                             <td>{{ $item->asalTujuanSurat }}</td>
                             <td>{{ $item->perihal }}</td>
-                            <td><a href="#" class="material-icons text-gray-800 btn-click md-36">
+                            <td><a target="_blank"
+                                    href="{{ route('dokumenFile.download', ['filename' => basename($item->dokumenSurat)]) }}"
+                                    class="material-icons text-gray-800 btn-click md-36">
                                     description
                                 </a></td>
-                            <td><livewire:form-disposisi-surat :idAgendaSurat="$item->idAgendaSurat" /></td>
                         </tr>
                     @endforeach
                 </tbody>

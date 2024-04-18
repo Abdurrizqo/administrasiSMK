@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 @section('content')
-    <div class="w-full bg-gray-100 p-10">
+    <div class="w-full">
 
         @if (session('error'))
             <div role="alert" class="alert alert-error mb-8 text-white font-medium">
@@ -15,11 +15,11 @@
             </ul>
         </span>
 
-        <div class="flex justify-center mt-10 mb-20">
-            <div class="w-[32rem] bg-white border shadow rounded-md p-10">
+        <div class="flex justify-center mt-10 mb-10">
+            <div class="w-[24rem] md:w-[28rem] lg:w-[36rem] bg-white border shadow rounded-md p-10">
                 <h1 class="text-center font-bold text-xl">Tambah Data Pegawai</h1>
 
-                <form method="POST" class="mt-6 w-full flex flex-col gap-3">
+                <form method="POST" class="mt-6 w-full flex flex-col gap-3 text-xs md:text-sm lg:text-base">
                     @csrf
                     <label class="form-control w-full">
                         <div class="label">

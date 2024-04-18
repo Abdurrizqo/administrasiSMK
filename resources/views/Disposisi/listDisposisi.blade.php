@@ -1,12 +1,12 @@
 @extends('layouts.layout')
 @section('content')
-    <div class="w-full p-10 flex-1 bg-white">
+    <div class="w-full">
         <div class="flex w-full mb-10 justify-between gap-y-4 items-center flex-wrap">
             <h1 class="text-2xl font-bold">Disposisi Surat</h1>
         </div>
 
-        <div class="flex justify-between w-full">
-            <form class="flex gap-4" method="GET">
+        <div class="w-full">
+            <form class="flex flex-wrap gap-4" method="GET">
                 <div class="flex gap-4 items-center">
                     <input required type="date" name="tanggalAwal" class="input input-bordered w-52" />
                     <p class="text-lg poppins-medium">-</p>
@@ -19,7 +19,7 @@
             </form>
         </div>
 
-        <div class="overflow-x-auto mt-12 rounded-lg border">
+        <div class="overflow-x-auto mt-12 rounded-lg border w-full bg-white p-4 text-xs md:text-sm lg:text-base">
             <table class="table table-zebra">
                 <thead>
                     <tr>
@@ -36,6 +36,7 @@
                             <td class="text-center">{{ $item->tanggalDisposisi }}</td>
                             <td>{{ $item->judulDisposisi }}</td>
                             <td>{{ $item->namaPegawai }}</td>
+                            <td><a href="disposisi-surat/{{ $item->idDisposisi }}">Balasan</a></td>
                         </tr>
                     @endforeach
                 </tbody>

@@ -5,7 +5,7 @@
             class="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center z-40 gap-4">
             <div class="w-[24rem] h-[34rem] bg-white p-5 rounded-xl flex flex-col">
                 <h1 class="text-center text-lg font-medium mb-8">Disposisi Surat</h1>
-                <form wire:submit.prevent="simpanDisposisiSurat" class="flex-grow overflow-auto">
+                <form wire:submit.prevent="simpanDisposisiSurat" class="flex-grow overflow-auto modalScroll p-4">
                     <label class="form-control w-full">
                         <div class="label">
                             <span class="label-text font-semibold">Judul</span>
@@ -46,10 +46,10 @@
 
             <div class="w-[24rem] h-[34rem] bg-white p-5 rounded-xl flex flex-col">
                 <form class="w-full">
-                    <input wire:model.live="searchPegawai" type="text" placeholder="namaPegawai"
+                    <input wire:model.live="searchPegawai" type="text" placeholder="nama pegawai"
                         class="input input-bordered w-full rounded-full" />
                 </form>
-                <div class="flex-frow overflow-auto mt-3 flex flex-col gap-2">
+                <div class="flex-frow overflow-auto mt-3 flex flex-col gap-2 modalScroll p-4">
                     @foreach ($pegawai as $item)
                         <div wire:click="selectPegawai('{{ $item->idPegawai }}','{{ $item->namaPegawai }}')"
                             class="border-b rounded cursor-pointer">

@@ -7,52 +7,72 @@
     background-color: #f3f3f3;
 }
 
+textarea{
+    resize: none;
+}
+
 .btn-edit {
     border-style: solid;
-    border-width: 0.8px; /* Atur ketebalan border sesuai kebutuhan */
-    border-color: #374151; /* Warna border */
-    border-radius: 4px; /* Radius sudut border */
+    border-width: 0.8px;
+    /* Atur ketebalan border sesuai kebutuhan */
+    border-color: #374151;
+    /* Warna border */
+    border-radius: 4px;
+    /* Radius sudut border */
     text-align: center;
     font-family: "Poppins", sans-serif;
-    font-weight: 500;
+    font-weight: 300;
     font-style: normal;
     color: #374151;
     padding-top: 0.7rem;
     padding-bottom: 0.7rem;
-    width: 10rem;
-    outline: none; /* Hilangkan outline bawaan */
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    min-width: 5rem;
+    outline: none;
+    /* Hilangkan outline bawaan */
 }
 
 .btn-delete {
     border-style: solid;
-    border-width: 0.8px; /* Atur ketebalan border sesuai kebutuhan */
-    border-radius: 4px; /* Radius sudut border */
+    border-width: 0.8px;
+    /* Atur ketebalan border sesuai kebutuhan */
+    border-radius: 4px;
+    /* Radius sudut border */
     text-align: center;
     font-family: "Poppins", sans-serif;
-    font-weight: 500;
+    font-weight: 300;
     font-style: normal;
     color: #fff;
     background-color: #ea5454;
     padding-top: 0.7rem;
     padding-bottom: 0.7rem;
-    width: 10rem;
-    outline: none; /* Hilangkan outline bawaan */
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    min-width: 5rem;
+    outline: none;
+    /* Hilangkan outline bawaan */
 }
 
 .btn-detail {
     border-style: solid;
-    border-width: 0.8px; /* Atur ketebalan border sesuai kebutuhan */
-    border-radius: 4px; /* Radius sudut border */
+    border-width: 0.8px;
+    /* Atur ketebalan border sesuai kebutuhan */
+    border-radius: 4px;
+    /* Radius sudut border */
     text-align: center;
     font-family: "Poppins", sans-serif;
-    font-weight: 500;
+    font-weight: 300;
     font-style: normal;
     color: #fff;
     background-color: #374151;
     padding-top: 0.7rem;
     padding-bottom: 0.7rem;
-    width: 10rem;
-    outline: none; /* Hilangkan outline bawaan */
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    min-width: 5rem;
+    outline: none;
+    /* Hilangkan outline bawaan */
 }
 
 .btn-delete:hover {
@@ -185,7 +205,8 @@
     font-family: "Material Icons";
     font-weight: normal;
     font-style: normal;
-    font-size: 24px; /* Preferred icon size */
+    font-size: 24px;
+    /* Preferred icon size */
     display: inline-block;
     line-height: 1;
     text-transform: none;
@@ -209,12 +230,60 @@
 .material-icons.md-18 {
     font-size: 18px;
 }
+
 .material-icons.md-24 {
     font-size: 24px;
 }
+
 .material-icons.md-36 {
     font-size: 36px;
 }
+
 .material-icons.md-48 {
     font-size: 48px;
+}
+
+.sideBar::-webkit-scrollbar-button {
+    display: none;
+}
+
+/* Perkecil lebar scrollbar */
+.sideBar::-webkit-scrollbar {
+    width: 4px;
+}
+
+/* Ubah warna latar belakang scrollbar */
+.sideBar::-webkit-scrollbar-track {
+    background-color: #374151;
+    /* Ubah sesuai kebutuhan */
+}
+
+/* Ubah warna scrollbar */
+.sideBar::-webkit-scrollbar-thumb {
+    background-color: rgb(179, 177, 177);
+    /* Ubah sesuai kebutuhan */
+    border-radius: 20px;
+}
+
+/* Modal Scroll */
+.modalScroll::-webkit-scrollbar-button {
+    display: none;
+}
+
+/* Perkecil lebar scrollbar */
+.modalScroll::-webkit-scrollbar {
+    width: 3px;
+}
+
+/* Ubah warna latar belakang scrollbar */
+.modalScroll::-webkit-scrollbar-track {
+    background-color: rgb(237, 237, 237);
+    /* Ubah sesuai kebutuhan */
+}
+
+/* Ubah warna scrollbar */
+.modalScroll::-webkit-scrollbar-thumb {
+    background-color: #616161;
+    /* Ubah sesuai kebutuhan */
+    border-radius: 20px;
 }

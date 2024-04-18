@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\DisposisiSurat;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
@@ -13,6 +14,14 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+// Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
+//     return (int) $user->id === (int) $id;
+// });
+
+Broadcast::channel('chat.{disposisiSurat}', function ($user, $disposisiSurat) {
+    $check = DisposisiSurat::where('idDisposisi', $disposisiSurat)->where('tujuan', $user->idPegawai)->first();
+    if ($user->role === "TU" || $check) {
+        return true;
+    }
+    return false;
 });

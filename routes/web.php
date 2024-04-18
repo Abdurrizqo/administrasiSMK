@@ -1,10 +1,12 @@
 <?php
 
+use App\Events\HelloEvent;
 use App\Http\Controllers\AgendaSuratController;
 use App\Http\Controllers\DisposisiController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RekapNilaiController;
@@ -26,12 +28,21 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [UserController::class, 'loginView']);
 Route::post('/', [UserController::class, 'loginUser']);
 Route::get('/logout', [UserController::class, 'logout']);
+Route::get('/tes', function(){
+    return view('pdf.raport');
+});
 
 Route::get('/home', [PegawaiController::class, 'homePegawaiView']);
+Route::get('/home/rekap-nilai-kelas', [RekapNilaiController::class, 'rekapNilaiKelasExcel']);
+Route::get('/download-file/message/{filename}', [MessageController::class, 'downloadFileOnMessage'])->name('messageFile.download');
+Route::get('/download-file/surat/{filename}', [AgendaSuratController::class, 'downloadFileOnDokumen'])->name('dokumenFile.download');
 
 Route::get('/home/siswa/{idKelas}/{idSiswa}', [RekapNilaiController::class, 'rekapNilaiPerSiswa']);
 Route::post('/home/siswa/{idKelas}/{idSiswa}', [RekapNilaiController::class, 'setKenaikanKelas']);
-Route::get('/home/siswa/{idKelas}/{idSiswa}/raport', [RekapNilaiController::class, 'cetakRaportSiswa']);
+Route::get('/home/siswa/{idKelas}/{idSiswa}/raportpdf', [RekapNilaiController::class, 'cetakRaportSiswa']);
+Route::get('/home/siswa/{idKelas}/{idSiswa}/rekap-nilai-siswa', [RekapNilaiController::class, 'rekapNilaiSiswaExcel']);
+Route::get('/home/disposisi/{idDisposisi}', [DisposisiController::class, 'balasanDisposisi']);
+
 Route::get('/home/kelas/{idKelasMapel}', [RekapNilaiController::class, 'kelasSiswaView']);
 
 Route::get('/dashboard', [ProfileController::class, 'getProfile']);
@@ -77,3 +88,6 @@ Route::get('/dashboard/agenda-surat-masuk', [AgendaSuratController::class, 'getA
 Route::get('/dashboard/agenda-surat-keluar', [AgendaSuratController::class, 'getAllAgendaSuratKeluar']);
 
 Route::get('/dashboard/disposisi-surat', [DisposisiController::class, 'listDisposisiSurat']);
+Route::get('/dashboard/disposisi-surat/{idDisposisi}', [DisposisiController::class, 'balasanDisposisi']);
+Route::get('/load-message/{idDisposisi}', [MessageController::class, 'loadMessage']);
+Route::post('/send-message/{idDisposisi}', [MessageController::class, 'saveMessage']);

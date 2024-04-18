@@ -118,7 +118,7 @@
 
 @extends('layouts.layout')
 @section('content')
-    <div class="w-full bg-white p-10">
+    <div class="w-full">
         <div class="flex w-full mb-10 justify-between gap-y-4 items-center flex-wrap">
             <h1 class="text-2xl font-bold">Data Kelas</h1>
             <button onclick="addKelasModal.showModal()"
@@ -139,10 +139,10 @@
             </div>
         @endif
 
-        <div class="flex justify-between w-full">
-            <form class="flex gap-4">
+        <div class="w-full">
+            <form class="flex flex-wrap items-center gap-4">
                 <input type="text" placeholder="Cari Berdasarkan Kelas"
-                    class="border px-3 rounded-full min-w-72 outline-none" name="search" />
+                    class="border p-3 rounded-full min-w-60 max-w-72 outline-none" name="search" />
                 <select class="select select-bordered min-w-60" name="tahunAjar">
                     <option value="">Semua</option>
                     @foreach ($tahunAjarSearch as $item)
@@ -151,11 +151,11 @@
                         </option>
                     @endforeach
                 </select>
-                <button class="btn-outline border border-neutral rounded-full w-32">Cari</button>
+                <button class="btn-outline border border-neutral rounded-full w-24 py-2">Cari</button>
             </form>
         </div>
 
-        <div class="mt-12 rounded-lg border">
+        <div class="mt-12 rounded-lg border bg-white p-4 text-xs md:text-sm lg:text-base">
             <table class="table">
                 <thead>
                     <tr>

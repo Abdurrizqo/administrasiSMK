@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 @section('content')
-    <div class="w-full flex-1 bg-gray-200/60 p-10">
+    <div class="w-full">
         <div class="w-full rounded-md border shadow p-6 bg-white">
             <div class="flex justify-center flex-col items-center">
                 <div class="w-28 h-28 rounded-full bg-gray-300 relative">

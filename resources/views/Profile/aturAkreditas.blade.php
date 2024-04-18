@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 @section('content')
-    <div class="w-full p-10  flex-1 bg-gray-100">
+    <div class="w-full">
         @if (session('error'))
             <div role="alert" class="alert alert-error mb-8 text-white">
                 <span>{{ session('error') }}</span>
@@ -14,7 +14,7 @@
             </ul>
         </span>
 
-        <div class="flex justify-center mt-10 mb-20">
+        <div class="flex justify-center mt-10 mb-10">
             <div class="w-[26rem] md:w-[32rem] p-10 rounded-lg bg-white h-full">
                 <h1 class="text-center poppins-bold text-xl mb-8">AKREDITASI SEKOLAH</h1>
 

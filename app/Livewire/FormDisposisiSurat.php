@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\AgendaSurat;
 use App\Models\DisposisiSurat;
 use App\Models\Pegawai;
 use Livewire\Attributes\Validate;
@@ -62,6 +63,8 @@ class FormDisposisiSurat extends Component
             'arahan' => $validated['arahan'],
             'tujuan' => $validated['tujuan'],
         ]);
+
+        AgendaSurat::where('idAgendaSurat', $validated['idAgendaSurat'])->update(["hasDisposisi" => true]);
 
         if ($newDisposisi) {
             return redirect('dashboard/agenda-surat-masuk')->with('success', 'Surat Berhasil Di Disposisikan');

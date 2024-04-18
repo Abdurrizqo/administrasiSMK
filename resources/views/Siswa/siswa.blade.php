@@ -1,8 +1,8 @@
 @extends('layouts.layout')
 @section('content')
-    <div class="w-full p-10 flex-1 bg-white">
+    <div class="w-full">
         <div class="flex w-full mb-10 justify-between gap-y-4 items-center flex-wrap">
-            <h1 class="text-2xl font-bold">Data Siswa</h1>
+            <h1 class="text-2xl font-bold w-[32rem]">Data Siswa</h1>
             <a class="btn-click bg-neutral text-white px-4 py-2 rounded-lg poppins-regular" href="siswa/tambah-siswa">Tambah Siswa</a>
         </div>
 
@@ -15,12 +15,12 @@
         <div class="flex justify-between w-full">
             <form class="flex gap-4"method="GET">
                 <input type="text" placeholder="Cari Siswa" name="search"
-                    class="border px-3 rounded-full min-w-96 outline-none" />
-                <button type="submit" class="btn-outline btn border border-neutral rounded-full w-28">Cari</button>
+                    class="border p-3 rounded-full min-w-72 max-w-96 outline-none" />
+                <button type="submit" class="btn-outline btn border border-neutral rounded-full w-20">Cari</button>
             </form>
         </div>
 
-        <div class="overflow-x-auto mt-12 rounded-lg border">
+        <div class="overflow-x-auto mt-12 rounded-lg border bg-white p-4 text-xs md:text-sm lg:text-base">
             <table class="table table-zebra">
                 <thead>
                     <tr>

@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 @section('content')
-    <div class="w-full p-10 bg-gray-100">
+    <div class="w-full">
 
         @if (session('error'))
             <div role="alert" class="alert alert-error mb-8 text-white">
@@ -15,11 +15,11 @@
             </ul>
         </span>
 
-        <div class="flex justify-center mt-10 mb-20">
-            <div class="w-[30rem] lg:w-[40rem] bg-white rounded-lg border p-10">
-                <h1 class="text-center poppins-bold text-xl mb-8">EDIT PROFIL SEKOLAH</h1>
+        <div class="flex justify-center mt-10 mb-10">
+            <div class="w-[30rem] md:w-[34rem] lg:w-[40rem] bg-white rounded-lg border p-10">
+                <h1 class="text-center poppins-bold text-lg md:text-xl mb-8">EDIT PROFIL SEKOLAH</h1>
 
-                <form method="POST" class="grid grid-cols-2 gap-5">
+                <form method="POST" class="grid grid-cols-2 gap-5 text-sm md:text-base">
                     @csrf
                     <div>
                         <label class="form-control w-full mb-6">
@@ -138,11 +138,7 @@
                             <span class="label-text poppins-semibold">Alamat</span>
                         </div>
 
-                        <textarea name="alamat" class="border w-full p-3 rounded-lg outline-none h-28 poppins-regular" placeholder="Alamat">
-@isset($profile)
-{{ $profile['alamat'] }}
-@endisset
-                        </textarea>
+                        <textarea name="alamat" class="border w-full p-3 rounded-lg outline-none h-28 poppins-regular" placeholder="Alamat">@isset($profile){{ $profile['alamat'] }}@endisset</textarea>
                         @error('alamat')
                             <p class="text-xs text-red-400 poppins-regular">*{{ $message }}</p>
                         @enderror

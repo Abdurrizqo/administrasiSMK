@@ -10,7 +10,8 @@
     @livewireStyles
 </head>
 
-<body class="relative poppins-regular min-h-screen">
+
+<body class="w-full min-h-screen flex flex-col relative">
     <div class="navbar h-20 border-b fixed bg-white text-neutral flex justify-end top-0 z-20">
         <div class=" flex gap-6 justify-between items-center">
             <div class="dropdown dropdown-end">
@@ -44,13 +45,15 @@
         </div>
     </div>
 
-    <div class="flex mt-20 h-full">
-        <div class="w-52 lg:w-72 text-white bg-neutral fixed top-0 bottom-0 left-0 z-40 overflow-y-auto h-full">
-            <div class="w-full h-20 p-3 bg-gray-700">
+    <div class="navbar h-20"></div>
+
+    <div class="flex-1 flex">
+        <div class="fixed top-0 h-full w-48 lg:w-56 bg-neutral z-40">
+            <div class="w-full h-20 p-3 bg-gray-700 mb-5">
                 {{-- <img src="{{ asset('images/logo.png') }}" alt="Avatar" alt="logo" class="w-16" /> --}}
             </div>
 
-            <div class="text-sm poppins-light px-3 flex flex-col gap-2 mt-8 mb-28">
+            <div class="text-sm text-white poppins-light px-3 flex flex-col gap-2 sideBar h-full overflow-y-auto">
                 <a href="/dashboard" class="hover:bg-gray-700 p-3 rounded-md cursor-pointer flex gap-3 items-center">
                     <span class="material-icons inline-block w-8">
                         maps_home_work
@@ -133,18 +136,15 @@
             </div>
         </div>
 
-        <div class="flex-1 flex flex-col h-full ml-52 lg:ml-72">
-            <div class="flex-1">
+        <div class="min-w-48 lg:w-56"></div>
+
+        <div class="flex-1 flex flex-col w-full min-h-screen">
+            <div class="flex-1 p-4 min-h-screen w-full bg-gray-100">
                 @yield('content')
             </div>
-
-            <footer class="w-full items-center p-2 bg-neutral text-neutral-content text-sm font-light">
-                <p>Copyright © 2024 - All right reserved</p>
-            </footer>
+            <div class="h-10 bg-gray-700"></div>
         </div>
     </div>
-
-    @livewireScripts
 </body>
 
 </html>
