@@ -3,7 +3,12 @@
     <div class="w-full">
         <div class="flex w-full mb-10 justify-between gap-y-4 items-center flex-wrap">
             <h1 class="text-2xl font-bold w-[32rem]">Data Siswa</h1>
-            <a class="btn-click bg-neutral text-white px-4 py-2 rounded-lg poppins-regular" href="siswa/tambah-siswa">Tambah Siswa</a>
+            <div class="flex justify-center items-center gap-4">
+                <a class="btn-click bg-neutral text-white px-4 py-2 rounded-lg poppins-regular"
+                    href="siswa/import-excel-siswa">Import Excel</a>
+                <a class="btn-click bg-neutral text-white px-4 py-2 rounded-lg poppins-regular"
+                    href="siswa/tambah-siswa">Tambah Siswa</a>
+            </div>
         </div>
 
         @if (session('success'))
@@ -39,8 +44,7 @@
                             <td class="whitespace-nowrap">{{ $item['namaSiswa'] }}</td>
                             <td class="whitespace-nowrap">{{ $item['jurusan']['namaJurusan'] }}</td>
                             <td class="flex justify-center">
-                                <a href="siswa/detail/{{ $item['idSiswa'] }}"
-                                    class="btn-detail">Detail</a>
+                                <a href="siswa/detail/{{ $item['idSiswa'] }}" class="btn-detail">Detail</a>
                             </td>
                         </tr>
                     @endforeach
@@ -52,5 +56,4 @@
             {{ $listSiswa->links() }}
         </div>
     </div>
-
 @endsection

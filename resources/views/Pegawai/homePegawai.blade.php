@@ -1,12 +1,15 @@
 @extends('layouts.layoutPegawai')
 @section('content')
     <div class="flex h-[100vh] gap-5 pt-28 px-8 pb-10">
-        <div class="min-w-[20rem] max-w-[20rem] flex flex-col gap-6">
-            <div class="border rounded-lg bg-white p-4 h-32 flex flex-col items-center justify-center">
+        <div class="min-w-[20rem] max-w-[20rem] flex flex-col gap-3">
+            <div class="border rounded-lg bg-white p-4 h-[10rem] flex flex-col items-center justify-center">
                 @if ($waliKelas)
                     <h1 class="text-lg poppins-bold text-center">Kelas {{ $waliKelas->namaKelas }}</h1>
                     <h1 class="text-lg poppins-regular text-gray-400 text-center mt-3">{{ $profileSekolah->tahunAjaran }} -
                         {{ $profileSekolah->semester }}</h1>
+                    <a target="_blank"
+                    href="home/rekap-nilai-kelas"
+                        class="btn-click text-center mt-5 py-1 w-full border rounded-lg border-gray-800 text-white bg-gray-800">Ledger</a>
                 @else
                     <h1 class="text-lg poppins-bold text-center text-gray-500">Tidak Terdaftar Sebagai Wali Kelas</h1>
                 @endif
@@ -58,9 +61,9 @@
                 <h1 class="mb-5 text-xl poppins-bold">Disposisi</h1>
 
                 @foreach ($disposisi as $item)
-                    <a href="home/disposisi/{{$item->idDisposisi}}" class="border-b border-neutral block pb-3 px-2">
-                        <h1 class="poppins-medium w-full truncate">{{$item->judulDisposisi}}</h1>
-                        <p class="popping-light text-gray-400">{{$item->tanggalDisposisi}}</p>
+                    <a href="home/disposisi/{{ $item->idDisposisi }}" class="border-b border-neutral block pb-3 px-2">
+                        <h1 class="poppins-medium w-full truncate">{{ $item->judulDisposisi }}</h1>
+                        <p class="popping-light text-gray-400">{{ $item->tanggalDisposisi }}</p>
                     </a>
                 @endforeach
 

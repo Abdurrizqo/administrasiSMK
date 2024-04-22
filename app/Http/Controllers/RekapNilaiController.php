@@ -23,7 +23,7 @@ class RekapNilaiController extends Controller
     {
         $profile = ProfilSekolah::first();
 
-        $siswa = KelasSiswa::select(['namaSiswa', 'nis', 'nisn', 'fotoSiswa', 'kelas_siswa.status'])
+        $siswa = KelasSiswa::select(['namaSiswa', 'nis', 'nisn', 'fotoSiswa', 'kelas_siswa.status', 'kelas_siswa.idSiswa'])
             ->where("kelas_siswa.idSiswa", $idSiswa)
             ->where("idKelas", $idKelas)
             ->leftJoin('siswa', 'siswa.idSiswa', '=', 'kelas_siswa.idSiswa')

@@ -14,6 +14,10 @@
             <div class="min-w-[22rem] max-w-[28rem] flex flex-col gap-6">
 
                 <div class="w-full bg-white border rounded-lg p-4 flex flex-col justify-center items-center gap-3">
+                    <a target="_blank" href="{{$siswa->idSiswa}}/rekap-nilai-siswa"
+                        class="btn-click text-center py-1 w-full border rounded-lg border-gray-800 text-white bg-gray-800">Rekap Nilai</a>
+                </div>
+                <div class="w-full bg-white border rounded-lg p-4 flex flex-col justify-center items-center gap-3">
                     <div class="avatar">
                         <div class="w-24 rounded-full">
                             @if ($siswa->fotoSiswa)
@@ -79,7 +83,7 @@
                 @endif
 
 
-                <livewire:catatan-siswa :semester="$semester"/>
+                <livewire:catatan-siswa :semester="$semester" />
                 <livewire:absensi :semester="$semester" />
                 <livewire:ekskul />
             </div>

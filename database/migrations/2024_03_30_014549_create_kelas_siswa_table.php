@@ -33,6 +33,9 @@ return new class extends Migration
             $table->longText('keteranganAkhirGenapPTS')->nullable(true);
             $table->longText('keteranganAkhirGenapPAS')->nullable(true);
 
+            $table->string('raportGanjil')->nullable(true);
+            $table->string('raportGenap')->nullable(true);
+
             $table->foreign('idKelas')->references('idKelas')->on('kelas')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('idSiswa')->references('idSiswa')->on('siswa')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

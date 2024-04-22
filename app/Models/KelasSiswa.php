@@ -17,7 +17,6 @@ class KelasSiswa extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'idKelasSiswa',
         'idKelas',
         'idSiswa',
         'status',
@@ -32,7 +31,9 @@ class KelasSiswa extends Model
         'keteranganAkhirGanjilPTS',
         'keteranganAkhirGanjilPAS',
         'keteranganAkhirGenapPTS',
-        'keteranganAkhirGenapPAS'
+        'keteranganAkhirGenapPAS',
+        'raportGanjil',
+        'raportGenap'
     ];
 
     public function kelas()

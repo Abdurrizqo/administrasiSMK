@@ -138,4 +138,5 @@ class PegawaiController extends Controller
 
         return view('Pegawai/homePegawai', ['kelasDiampu' => $mataPelajaran, 'waliKelas' => $waliKelas, 'siswa' => $siswa, 'profileSekolah' => $profile, 'disposisi' => $disposisi]);
     }
+
 }

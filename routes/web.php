@@ -41,6 +41,7 @@ Route::get('/home/siswa/{idKelas}/{idSiswa}', [RekapNilaiController::class, 'rek
 Route::post('/home/siswa/{idKelas}/{idSiswa}', [RekapNilaiController::class, 'setKenaikanKelas']);
 Route::get('/home/siswa/{idKelas}/{idSiswa}/raportpdf', [RekapNilaiController::class, 'cetakRaportSiswa']);
 Route::get('/home/siswa/{idKelas}/{idSiswa}/rekap-nilai-siswa', [RekapNilaiController::class, 'rekapNilaiSiswaExcel']);
+
 Route::get('/home/disposisi/{idDisposisi}', [DisposisiController::class, 'balasanDisposisi']);
 
 Route::get('/home/kelas/{idKelasMapel}', [RekapNilaiController::class, 'kelasSiswaView']);
@@ -71,10 +72,13 @@ Route::post('/dashboard/pegawai/edit/{nip}', [PegawaiController::class, 'handleE
 Route::get('/dashboard/siswa', [SiswaController::class, 'listSiswa']);
 Route::get('/dashboard/siswa/tambah-siswa', [SiswaController::class, 'addSiswaView']);
 Route::post('/dashboard/siswa/tambah-siswa', [SiswaController::class, 'handleAddSiswa']);
+Route::get('/dashboard/siswa/import-excel-siswa', [SiswaController::class, 'imporSiswaFromExcelView']);
+Route::post('/dashboard/siswa/import-excel-siswa', [SiswaController::class, 'handleImporSiswaFromExcel']);
 Route::get('/dashboard/siswa/detail/{idSiswa}', [SiswaController::class, 'detailSiswa'])->name('detailSiswa');
-Route::get('/dashboard/siswa/detail/{idSiswa}/raport/{idKelas}', [SiswaController::class, 'detailRaportSiswa']);
+Route::get('/dashboard/siswa/detail/{idSiswa}/raport/{idKelas}', [SiswaController::class, 'detailRaportSiswa'])->name('siswa.raport');
 Route::get('/dashboard/siswa/detail/{idSiswa}/edit', [SiswaController::class, 'editSiswaView']);
 Route::post('/dashboard/siswa/detail/{idSiswa}/edit', [SiswaController::class, 'handleEditSiswa']);
+Route::get('/dashboard/siswa/raport/download/{filename}', [SiswaController::class, 'downloadRaport'])->name('siswa.downloadRaport');
 
 Route::get('/dashboard/kelas', [KelasController::class, 'listKelas']);
 Route::post('/dashboard/kelas', [KelasController::class, 'handleAddKelas']);

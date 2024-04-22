@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Ekskul;
 use App\Models\Jurusan;
-use App\Models\Kelas;
 use App\Models\KelasMapel;
 use App\Models\KelasSiswa;
 use App\Models\RekapPas;
-use App\Models\RekapPts;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
+use Throwable;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 class SiswaController extends Controller
 {
@@ -74,9 +76,9 @@ class SiswaController extends Controller
         $semester = $request->query('semester') === "GENAP" ? "GENAP" : "GANJIL";
 
         if ($semester === "GANJIL") {
-            $selectAbsen = ['kelas_siswa.idSiswa', 'namaSiswa', 'nis', 'nisn', 'fotoSiswa', 'kelas_siswa.status', 'totalHadirGanjil as totalHadir', 'totalSakitGanjil as totalSakit', 'totalTanpaKeteranganGanjil as totalTanpaKeterangan', 'totalIzinGanjil as totalIzin', 'keteranganAkhirGanjilPAS as catatanPas'];
+            $selectAbsen = ['kelas_siswa.idSiswa', 'kelas_siswa.idKelas', 'kelas_siswa.raportGanjil as dokumenRaport', 'namaSiswa', 'nis', 'nisn', 'fotoSiswa', 'kelas_siswa.status', 'totalHadirGanjil as totalHadir', 'totalSakitGanjil as totalSakit', 'totalTanpaKeteranganGanjil as totalTanpaKeterangan', 'totalIzinGanjil as totalIzin', 'keteranganAkhirGanjilPAS as catatanPas'];
         } else {
-            $selectAbsen = ['kelas_siswa.idSiswa', 'namaSiswa', 'nis', 'nisn', 'fotoSiswa', 'kelas_siswa.status', 'totalHadirGenap as totalHadir', 'totalSakitGenap as totalSakit', 'totalTanpaKeteranganGenap as totalTanpaKeterangan', 'totalIzinGenap as totalIzin', 'keteranganAkhirGenapPAS as catatanPas'];
+            $selectAbsen = ['kelas_siswa.idSiswa', 'kelas_siswa.idKelas', 'kelas_siswa.raportGenap as dokumenRaport', 'namaSiswa', 'nis', 'nisn', 'fotoSiswa', 'kelas_siswa.status', 'totalHadirGenap as totalHadir', 'totalSakitGenap as totalSakit', 'totalTanpaKeteranganGenap as totalTanpaKeterangan', 'totalIzinGenap as totalIzin', 'keteranganAkhirGenapPAS as catatanPas'];
         }
 
         $siswa = KelasSiswa::select($selectAbsen)
@@ -150,5 +152,78 @@ class SiswaController extends Controller
             return redirect()->route('detailSiswa', ['idSiswa' => $idSiswa])->with('success', 'Data Siswa Berhasil Diperbarui');
         }
         return redirect()->refresh()->withInput()->withErrors('error', 'Data Siswa Gagal Diperbarui');
+    }
+
+    public function imporSiswaFromExcelView()
+    {
+        return view("Siswa/importSiswa");
+    }
+
+    public function handleImporSiswaFromExcel(Request $request)
+    {
+        $validatedData = $request->validate([
+            'dokumen' => 'required|file|mimes:xlsx,xls|max:5120',
+        ], [
+            'required' => "Form Tidak Boleh Kosong",
+            'mimes' => "File Harus Berjenis Excel",
+            'max' => "Ukuran Maksimal 5mb",
+        ]);
+
+        DB::beginTransaction();
+
+        $collection = (new FastExcel)->import($validatedData['dokumen']);
+
+        $errorMessages = [];
+
+        foreach ($collection as $value) {
+            try {
+                Siswa::create([
+                    'nis' => $value['nis'],
+                    'nisn' => $value['nisn'],
+                    'namaSiswa' => $value['nama_siswa'],
+                    'tahunMasuk' => $value['tahun_masuk'],
+                    'idJurusan' => $value['jurusan'],
+                    'nikWali' => $value['nik_wali'],
+                    'namaWali' => $value['nama_wali'],
+                    'alamat' => $value['alamat'],
+                    'hubunganKeluarga' => $value['hubungan_keluarga']
+                ]);
+            } catch (Throwable $e) {
+                if ($e->errorInfo[1] === 1062) {
+                    $errorMessages[] = "Gagal menambahkan siswa " . $value['nama_siswa'] . " : Data (NIS, NISN) telah ada di database.";
+                } elseif ($e->errorInfo[1] === 1452) {
+                    $errorMessages[] = "Gagal menambahkan siswa " . $value['nama_siswa'] . " : Id Jurusan Tidak Valid.";
+                } elseif ($e->errorInfo[1] === 'HY000') {
+                    $errorMessages[] = "Gagal menambahkan siswa " . $value['nama_siswa'] . " : Hubungan Keluarga harus bernilai ('Ayah', 'Ibu', 'Kakak', 'Paman', 'Lainnya').";
+                } else {
+                    $errorMessages[] = "Gagal menambahkan siswa " . $value['nama_siswa'] . " :" . $e->getMessage();
+                }
+            }
+        }
+
+
+        if (count($errorMessages) === 0) {
+            DB::commit();
+            return redirect()->back()->with(['success' => "Import Semua Data Berhasil"]);
+        } else {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => $errorMessages]);
+        }
+    }
+
+    public function downloadRaport($filename)
+    {
+        $path = storage_path('app/dokumenRaport/' . $filename);
+
+        if (file_exists($path)) {
+            $response = Response::file($path, [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="' . $filename . '"'
+            ]);
+
+            return $response;
+        } else {
+            abort(404, 'File not found');
+        }
     }
 }
