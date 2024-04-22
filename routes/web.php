@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [UserController::class, 'loginView']);
 Route::post('/', [UserController::class, 'loginUser']);
 Route::get('/logout', [UserController::class, 'logout']);
-Route::get('/tes', function(){
+Route::get('/tes', function () {
     return view('pdf.raport');
 });
 
@@ -73,8 +73,8 @@ Route::get('/dashboard/siswa/tambah-siswa', [SiswaController::class, 'addSiswaVi
 Route::post('/dashboard/siswa/tambah-siswa', [SiswaController::class, 'handleAddSiswa']);
 Route::get('/dashboard/siswa/detail/{idSiswa}', [SiswaController::class, 'detailSiswa'])->name('detailSiswa');
 Route::get('/dashboard/siswa/detail/{idSiswa}/raport/{idKelas}', [SiswaController::class, 'detailRaportSiswa']);
-Route::get('/dashboard/siswa/detail/edit/{idSiswa}', [SiswaController::class, 'editSiswaView']);
-Route::post('/dashboard/siswa/detail/edit/{idSiswa}', [SiswaController::class, 'handleEditSiswa']);
+Route::get('/dashboard/siswa/detail/{idSiswa}/edit', [SiswaController::class, 'editSiswaView']);
+Route::post('/dashboard/siswa/detail/{idSiswa}/edit', [SiswaController::class, 'handleEditSiswa']);
 
 Route::get('/dashboard/kelas', [KelasController::class, 'listKelas']);
 Route::post('/dashboard/kelas', [KelasController::class, 'handleAddKelas']);
@@ -85,7 +85,9 @@ Route::post('/dashboard/kelas/edit', [KelasController::class, 'handleEditKelas']
 Route::get('/dashboard/kelas/delete/{idKelas}', [KelasController::class, 'deleteKelas']);
 
 Route::get('/dashboard/agenda-surat-masuk', [AgendaSuratController::class, 'getAllAgendaSuratMasuk']);
+Route::get('/dashboard/agenda-surat-masuk/export', [AgendaSuratController::class, 'exportSuratMasuk']);
 Route::get('/dashboard/agenda-surat-keluar', [AgendaSuratController::class, 'getAllAgendaSuratKeluar']);
+Route::get('/dashboard/agenda-surat-keluar/export', [AgendaSuratController::class, 'exportSuratKeluar']);
 
 Route::get('/dashboard/disposisi-surat', [DisposisiController::class, 'listDisposisiSurat']);
 Route::get('/dashboard/disposisi-surat/{idDisposisi}', [DisposisiController::class, 'balasanDisposisi']);

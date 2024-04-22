@@ -28,7 +28,7 @@
             <div class="flex-grow h-full bg-white rounded-lg border p-4 overflow-auto">
                 <h1 class="mb-5 text-xl poppins-bold">Daftar Siswa</h1>
 
-                <div class="flex flex-wrap gap-5 justify-start items-start">
+                <div class="flex flex-wrap gap-5 justify-center items-start">
                     @if ($siswa)
                         @foreach ($siswa as $item)
                             <a href="home/siswa/{{ $waliKelas->idKelas }}/{{ $item->idSiswa }}"

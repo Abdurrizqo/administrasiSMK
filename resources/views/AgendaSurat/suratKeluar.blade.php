@@ -1,9 +1,35 @@
 @extends('layouts.layout')
 @section('content')
+    <dialog id="exportModal" class="modal">
+        <div class="modal-box">
+            <h1 class="text-center text-lg poppins-medium">EXPORT REKAP SURAT KELUAR</h1>
+
+            <div class="flex gap-4 items-center mt-10 mb-12">
+                <input required type="date" id="tanggalAwal" class="input input-bordered w-52" />
+                <p class="text-lg poppins-medium">-</p>
+                <input required type="date" id="tanggalAkhir" class="input input-bordered w-52" />
+            </div>
+
+            <form method="dialog" class="flex justify-end gap-4">
+                <button
+                    class="btn-click text-center w-24 px-3 py-2 border rounded-lg border-gray-800 text-gray-800 bg-white">Close</button>
+                <a target="_blank"
+                    class="btn-click text-center w-24 px-3 py-2 border rounded-lg border-gray-800 text-white bg-gray-800">Export</a>
+            </form>
+        </div>
+    </dialog>
+
     <div class="w-full">
         <div class="flex w-full mb-10 justify-between gap-y-4 items-center flex-wrap">
             <h1 class="text-2xl font-bold min-w-[32rem]">Agenda Surat Keluar</h1>
-            <livewire:form-agenda-surat-keluar />
+
+            <div class="flex items-center gap-4">
+                <button onclick="exportModal.showModal();"
+                    class="btn-click bg-neutral text-white px-4 py-2 rounded-lg poppins-regular">
+                    Excel Rekap Surat
+                </button>
+                <livewire:form-agenda-surat-keluar />
+            </div>
         </div>
 
         @if (session('success'))
@@ -71,4 +97,27 @@
             {{ $listAgenda->links() }}
         </div>
     </div>
+
+    <script>
+        const tanggalAwalInput = document.getElementById("tanggalAwal");
+        const tanggalAkhirInput = document.getElementById("tanggalAkhir");
+
+        const exportLink = document.querySelector(".modal-box a");
+
+        tanggalAwalInput.addEventListener("change", updateExportLink);
+        tanggalAkhirInput.addEventListener("change", updateExportLink);
+
+        function updateExportLink() {
+            const tanggalAwal = tanggalAwalInput.value;
+            const tanggalAkhir = tanggalAkhirInput.value;
+
+            if (tanggalAwal && tanggalAkhir) {
+                exportLink.classList.remove("disabled");
+                exportLink.href = `agenda-surat-keluar/export?tanggalAwal=${tanggalAwal}&tanggalAkhir=${tanggalAkhir}`;
+            } else {
+                exportLink.classList.add("disabled");
+                exportLink.removeAttribute("href");
+            }
+        }
+    </script>
 @endsection

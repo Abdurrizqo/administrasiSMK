@@ -10,8 +10,8 @@
             </ul>
         </span>
 
-        <div class="flex gap-10 ">
-            <div class="min-w-[28rem] max-w-[20rem] flex flex-col gap-6">
+        <div class="flex gap-5 ">
+            <div class="min-w-[22rem] max-w-[28rem] flex flex-col gap-6">
 
                 <div class="w-full bg-white border rounded-lg p-4 flex flex-col justify-center items-center gap-3">
                     <div class="avatar">

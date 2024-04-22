@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 @section('content')
-    <div class="w-full p-10 flex-1 bg-gray-200/60">
+    <div class="w-full">
 
         @if (session('error'))
             <div role="alert" class="alert alert-error mb-8">
@@ -8,8 +8,15 @@
             </div>
         @endif
 
-        <div class="flex justify-center">
-            <div class="w-full lg:w-[40rem] border shadow rounded-md p-10">
+        <span class="text-sm border border-gray-300 inline-block breadcrumbs bg-white px-8 py-3 poppins-medium rounded-full">
+            <ul>
+                <li><a href="/dashboard/siswa/detail/{{$siswa->idSiswa}}">Detail Siswa</a></li>
+                <li><a href="#">Edit Siswa</li></a>
+            </ul>
+        </span>
+
+        <div class="flex justify-center mt-10 mb-10">
+            <div class="w-[24rem] md:w-[28rem] lg:w-[36rem] bg-white border shadow rounded-md p-10">
                 <h1 class="text-center font-bold text-xl">Edit Data Siswa</h1>
                 <h1 class="text-center font-bold text-xl">{{ $siswa['namaSiswa'] }}</h1>
 

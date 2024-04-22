@@ -9,7 +9,12 @@
                     </button>
                 </div>
 
-                <h1 class="text-lg font-semibold text-center mt-6">{{ $siswa->namaSiswa }}</h1>
+                <div class="flex gap-2 justify-center items-center mt-6">
+                    <h1 class="text-lg font-semibold text-center">{{ $siswa->namaSiswa }}</h1>
+                    <a href="{{ $siswa->idSiswa }}/edit" class="material-icons md-18">
+                        edit
+                    </a>
+                </div>
             </div>
 
             <div class="divider"></div>
@@ -85,16 +90,12 @@
             </div>
         </div>
 
-        <div class="w-full rounded-md border shadow p-6 mt-10 bg-white">
-            <h1 class="font-bold text-lg">Informasi Alumni</h1>
-        </div>
-
         <div class="w-full rounded-md border shadow p-6 my-10 bg-white">
             <h1 class="font-bold text-lg">Riwayat Kelas</h1>
 
             <div class="w-full flex flex-wrap gap-12 mt-5">
                 @foreach ($kelas as $item)
-                    <a href="{{$item->idSiswa}}/raport/{{$item->idKelas}}" class="rounded-lg border bg-white w-80">
+                    <a href="{{ $item->idSiswa }}/raport/{{ $item->idKelas }}" class="rounded-lg border bg-white w-80">
                         <div class="w-full rounded-t-lg bg-neutral text-white p-3"></div>
                         <div class="p-3">
                             <h1 class="poppinns-medium text-lg">{{ $item->namaKelas }}</h1>

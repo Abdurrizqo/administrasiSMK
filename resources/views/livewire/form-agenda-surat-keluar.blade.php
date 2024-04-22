@@ -29,7 +29,7 @@
 
                     <label class="form-control w-full mb-4">
                         <div class="label">
-                            <span class="label-text font-semibold">Asal</span>
+                            <span class="label-text font-semibold">Tujuan Surat</span>
                         </div>
                         <input wire:model="asalSurat" type="text" placeholder="tujuan"
                             class="input input-bordered w-full" />
@@ -69,7 +69,6 @@
         </div>
     @endif
 
-    <button wire:click='openModal' class="btn-click bg-neutral text-white px-4 py-2 rounded-lg poppins-regular"
-        href="siswa/tambah-siswa">Catat
+    <button wire:click='openModal' class="btn-click bg-neutral text-white px-4 py-2 rounded-lg poppins-regular">Catat
         Surat Keluar</button>
 </div>
