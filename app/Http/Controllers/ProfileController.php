@@ -7,9 +7,7 @@ use App\Models\Pegawai;
 use App\Models\ProfilSekolah;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 
 class ProfileController extends Controller

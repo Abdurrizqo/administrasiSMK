@@ -25,6 +25,7 @@ class Siswa extends Model
         'status',
         'tahunPindah',
         'fotoSiswa',
+        'ijazahLulus',
         'nikWali',
         'namaWali',
         'alamat',

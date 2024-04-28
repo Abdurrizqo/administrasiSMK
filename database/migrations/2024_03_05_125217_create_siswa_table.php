@@ -23,6 +23,7 @@ return new class extends Migration
             $table->year('tahunLulus')->nullable(true);
             $table->year('tahunPindah')->nullable(true);
             $table->string('fotoSiswa')->nullable();
+            $table->string('ijazahLulus')->nullable(true);
             $table->string('nikWali', 28);
             $table->string('namaWali');
             $table->text('alamat');

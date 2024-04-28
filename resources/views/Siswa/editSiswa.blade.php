@@ -3,7 +3,7 @@
     <div class="w-full">
 
         @if (session('error'))
-            <div role="alert" class="alert alert-error mb-8">
+            <div role="alert" class="alert alert-error mb-8 text-white">
                 <span>{{ session('error') }}</span>
             </div>
         @endif

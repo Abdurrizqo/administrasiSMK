@@ -14,17 +14,14 @@
             <div class="min-w-[22rem] max-w-[28rem] flex flex-col gap-6">
 
                 <div class="w-full bg-white border rounded-lg p-4 flex flex-col justify-center items-center gap-3">
-                    <a target="_blank" href="{{$siswa->idSiswa}}/rekap-nilai-siswa"
-                        class="btn-click text-center py-1 w-full border rounded-lg border-gray-800 text-white bg-gray-800">Rekap Nilai</a>
+                    <a target="_blank" href="{{ $siswa->idSiswa }}/rekap-nilai-siswa"
+                        class="btn-click text-center py-1 w-full border rounded-lg border-gray-800 text-white bg-gray-800">Rekap
+                        Nilai</a>
                 </div>
                 <div class="w-full bg-white border rounded-lg p-4 flex flex-col justify-center items-center gap-3">
                     <div class="avatar">
-                        <div class="w-24 rounded-full">
-                            @if ($siswa->fotoSiswa)
-                                <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                            @else
-                                <div class="w-full h-full bg-gray-600"></div>
-                            @endif
+                        <div class="w-24 h-24 rounded-full bg-gray-300 relative"
+                            style="background-image: url('{{ Storage::url($siswa->fotoSiswa) }}'); background-size: cover; background-position: center;">
                         </div>
                     </div>
 

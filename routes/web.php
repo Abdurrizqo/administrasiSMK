@@ -79,6 +79,9 @@ Route::get('/dashboard/siswa/detail/{idSiswa}/raport/{idKelas}', [SiswaControlle
 Route::get('/dashboard/siswa/detail/{idSiswa}/edit', [SiswaController::class, 'editSiswaView']);
 Route::post('/dashboard/siswa/detail/{idSiswa}/edit', [SiswaController::class, 'handleEditSiswa']);
 Route::get('/dashboard/siswa/raport/download/{filename}', [SiswaController::class, 'downloadRaport'])->name('siswa.downloadRaport');
+Route::post('/dashboard/siswa/{idSiswa}/add-foto', [SiswaController::class, 'addFotoSiswa']);
+Route::post('/dashboard/siswa/{idSiswa}/ganti-status', [SiswaController::class, 'gantiStatusSiswa']);
+Route::get('/dashboard/siswa/ijazah/download/{filename}', [SiswaController::class, 'downloadIjazah'])->name('siswa.downloadIjazah');
 
 Route::get('/dashboard/kelas', [KelasController::class, 'listKelas']);
 Route::post('/dashboard/kelas', [KelasController::class, 'handleAddKelas']);

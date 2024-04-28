@@ -89,7 +89,7 @@
                     @if ($siswa->dokumenRaport)
                         <a target="_blank"
                             class="w-full rounded-lg border flex items-center gap-3 justify-start mb-3 p-2"
-                            href="/dashboard/siswa/raport/download/{{basename($siswa->dokumenRaport)}}">
+                            href="/dashboard/siswa/raport/download/{{ basename($siswa->dokumenRaport) }}">
 
                             <span class="material-icons text-gray-800 btn-click md-24">
                                 description
@@ -104,12 +104,8 @@
 
                 <div class="w-full bg-white border rounded-lg p-4 flex flex-col justify-center items-center gap-3">
                     <div class="avatar">
-                        <div class="w-24 rounded-full">
-                            @if ($siswa->fotoSiswa)
-                                <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                            @else
-                                <div class="w-full h-full bg-gray-600"></div>
-                            @endif
+                        <div class="w-24 h-24 rounded-full bg-gray-300 relative"
+                            style="background-image: url('{{ Storage::url($siswa->fotoSiswa) }}'); background-size: cover; background-position: center;">
                         </div>
                     </div>
 

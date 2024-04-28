@@ -8,9 +8,12 @@ use App\Models\KelasMapel;
 use App\Models\KelasSiswa;
 use App\Models\RekapPas;
 use App\Models\Siswa;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Throwable;
 use Rap2hpoutre\FastExcel\FastExcel;
 
@@ -214,6 +217,102 @@ class SiswaController extends Controller
     public function downloadRaport($filename)
     {
         $path = storage_path('app/dokumenRaport/' . $filename);
+
+        if (file_exists($path)) {
+            $response = Response::file($path, [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="' . $filename . '"'
+            ]);
+
+            return $response;
+        } else {
+            abort(404, 'File not found');
+        }
+    }
+
+    public function addFotoSiswa($idSiswa, Request $request)
+    {
+        $siswa = Siswa::where('idSiswa', $idSiswa)->first();
+
+        if (isset($siswa->fotoSiswa)) {
+            Storage::delete("public/{$siswa->fotoSiswa}");
+        }
+
+        $fileName = Str::random(6) . '_' . time() . '.' . $request->file('fotoSiswa')->getClientOriginalExtension();
+        $siswa->fotoSiswa = $request->file('fotoSiswa')->storeAs('fotoSiswa', $fileName, 'public');
+
+        $siswa->save();
+        return redirect()->back()->with('success', 'Tambah Foto Siswa Berhasil');
+    }
+
+    public function gantiStatusSiswa($idSiswa, Request $request)
+    {
+        try {
+            $validate = $request->validate([
+                'status' => 'required|string|in:pindah,lulus,aktif',
+                'ijazah' => 'nullable|file|mimes:pdf|max:3000'
+            ]);
+
+            $tahunSekarang = Carbon::now()->year;
+            $siswa = Siswa::where('idSiswa', $idSiswa)->first();
+
+            if ($validate['status'] === "lulus") {
+
+                if ($siswa->ijazahLulus) {
+                    if (file_exists(storage_path('app/' . $siswa->ijazahLulus))) {
+                        unlink(storage_path('app/' . $siswa->ijazahLulus));
+                    }
+                }
+
+                $fileName = Str::random(6) . '_' . time() . '.' . $request->file('ijazah')->getClientOriginalExtension();
+                $fileIjazah = $request->file('ijazah')->storeAs('ijazah', $fileName);
+
+                Siswa::where('idSiswa', $idSiswa)
+                    ->update([
+                        'status' => $validate['status'],
+                        'tahunLulus' => $tahunSekarang,
+                        'ijazahLulus' => $fileIjazah,
+                        'tahunPindah' => null
+                    ]);
+            } elseif ($validate['status'] === "aktif") {
+                if ($siswa->ijazahLulus) {
+                    if (file_exists(storage_path('app/' . $siswa->ijazahLulus))) {
+                        unlink(storage_path('app/' . $siswa->ijazahLulus));
+                    }
+                }
+
+                Siswa::where('idSiswa', $idSiswa)
+                    ->update([
+                        'status' => $validate['status'],
+                        'tahunPindah' => null,
+                        'tahunLulus' => null,
+                        'ijazahLulus' => null
+                    ]);
+            } else {
+                if ($siswa->ijazahLulus) {
+                    if (file_exists(storage_path('app/' . $siswa->ijazahLulus))) {
+                        unlink(storage_path('app/' . $siswa->ijazahLulus));
+                    }
+                }
+
+                Siswa::where('idSiswa', $idSiswa)
+                    ->update([
+                        'status' => $validate['status'],
+                        'tahunPindah' => $tahunSekarang,
+                        'tahunLulus' => null,
+                        'ijazahLulus' => null
+                    ]);
+            }
+
+            return redirect()->back()->with(['success' => 'Ganti Status Siswa Berhasil']);
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+        }
+    }
+
+    public function downloadIjazah($filename)
+    {
+        $path = storage_path('app/ijazah/' . $filename);
 
         if (file_exists($path)) {
             $response = Response::file($path, [
