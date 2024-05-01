@@ -7,8 +7,7 @@
                     <h1 class="text-lg poppins-bold text-center">Kelas {{ $waliKelas->namaKelas }}</h1>
                     <h1 class="text-lg poppins-regular text-gray-400 text-center mt-3">{{ $profileSekolah->tahunAjaran }} -
                         {{ $profileSekolah->semester }}</h1>
-                    <a target="_blank"
-                    href="home/rekap-nilai-kelas"
+                    <a target="_blank" href="home/rekap-nilai-kelas"
                         class="btn-click text-center mt-5 py-1 w-full border rounded-lg border-gray-800 text-white bg-gray-800">Ledger</a>
                 @else
                     <h1 class="text-lg poppins-bold text-center text-gray-500">Tidak Terdaftar Sebagai Wali Kelas</h1>

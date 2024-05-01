@@ -24,9 +24,3 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-
-Route::post('/rekap-pts/{idRekapPts}', [RekapNilaiController::class, 'handleInputRekapPTS']);
-Route::post('/rekap-pas/{idRekapPas}', [RekapNilaiController::class, 'handleInputRekapPAS']);
-Route::get('/surat-masuk', [AgendaSuratController::class, 'getAllAgendaSuratMasuk']);
-Route::get('/surat-keluar', [AgendaSuratController::class, 'getAllAgendaSuratKeluar']);
-Route::post('/buat-agenda', [AgendaSuratController::class, 'createNewAgenda']);

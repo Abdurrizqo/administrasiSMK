@@ -164,4 +164,41 @@ class PegawaiController extends Controller
             return redirect()->refresh()->withInput()->with('error', 'Hapus Pegawai Gagal' . $th->getMessage());
         }
     }
+
+    public function GantiPasswordView()
+    {
+        return view('Pegawai/gantiPassword');
+    }
+
+    public function GantiPasswordTUView()
+    {
+        return view('Pegawai/gantiPasswordTU');
+    }
+
+    public function handleGantiPassword(Request $request)
+    {
+        $validate = $request->validate(
+            [
+                'username' => 'required|string',
+                'password' => 'required|string',
+                'passwordBaru' => 'required|string|min:6'
+            ]
+        );
+
+        $user = User::where('username', $validate['username'])->first();
+
+        if (!$user) {
+            return redirect()->back()->with('error', 'Ganti Password Gagal');
+        }
+
+        $userLogin = Auth::user();
+
+        if ($user['idUser'] === $userLogin['idUser'] && Hash::check($validate['password'], $user['password'])) {
+            $user['password'] = Hash::make($validate['passwordBaru']);
+            $user->save();
+            return redirect()->back()->with('success', 'Ganti Password Berhasil');
+        }
+
+        return redirect()->back()->with('error', 'Ganti Password Gagal');
+    }
 }

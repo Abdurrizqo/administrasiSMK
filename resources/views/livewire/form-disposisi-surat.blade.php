@@ -1,5 +1,4 @@
 <div>
-
     @if ($isModalOpen)
         <div
             class="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center z-40 gap-4">
