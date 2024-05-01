@@ -76,6 +76,8 @@ class CatatanSiswa extends Component
 
     public function saveCatatanPts()
     {
+        $this->mesgSuccess = false;
+        $this->mesgError = false;
         if ($this->semester === "GANJIL") {
             $check = KelasSiswa::where("idSiswa", $this->idSiswa)
                 ->where("idKelas", $this->idKelas)
@@ -88,13 +90,17 @@ class CatatanSiswa extends Component
 
         if ($check) {
             $this->mesgSuccess = true;
+            $this->mesgError = false;
         } else {
             $this->mesgError = true;
+            $this->mesgSuccess = false;
         }
     }
 
     public function saveCatatanPas()
     {
+        $this->mesgSuccess = false;
+        $this->mesgError = false;
         if ($this->semester === "GANJIL") {
             $check = KelasSiswa::where("idSiswa", $this->idSiswa)
                 ->where("idKelas", $this->idKelas)
@@ -107,8 +113,10 @@ class CatatanSiswa extends Component
 
         if ($check) {
             $this->mesgSuccess = true;
+            $this->mesgError = false;
         } else {
             $this->mesgError = true;
+            $this->mesgSuccess = false;
         }
     }
 }

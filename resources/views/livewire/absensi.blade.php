@@ -21,7 +21,7 @@
                 </div>
                 <input type="number" min="0" max="200" wire:model="formTotalKehadiran"
                     class="input input-bordered w-full" />
-                @error('namaSiswa')
+                @error('formTotalKehadiran')
                     <p class="text-xs text-red-400">*{{ $message }}</p>
                 @enderror
             </label>
@@ -32,7 +32,7 @@
                 </div>
                 <input type="number" min="0" max="200" wire:model="formTotalIzin"
                     class="input input-bordered w-full" />
-                @error('namaSiswa')
+                @error('formTotalIzin')
                     <p class="text-xs text-red-400">*{{ $message }}</p>
                 @enderror
             </label>
@@ -46,7 +46,7 @@
                 </div>
                 <input type="number" min="0" max="200" wire:model="formTotalSakit"
                     class="input input-bordered w-full" />
-                @error('namaSiswa')
+                @error('formTotalSakit')
                     <p class="text-xs text-red-400">*{{ $message }}</p>
                 @enderror
             </label>
@@ -57,7 +57,7 @@
                 </div>
                 <input type="number" min="0" max="200" wire:model="formTotalAbsen"
                     class="input input-bordered w-full" />
-                @error('namaSiswa')
+                @error('formTotalAbsen')
                     <p class="text-xs text-red-400">*{{ $message }}</p>
                 @enderror
             </label>

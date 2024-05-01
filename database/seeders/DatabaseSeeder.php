@@ -8,6 +8,7 @@ use App\Models\AgendaSurat;
 use App\Models\Jurusan;
 use App\Models\MataPelajaran;
 use App\Models\Pegawai;
+use App\Models\PelengkapSekolah;
 use App\Models\ProfilSekolah;
 use App\Models\Siswa;
 use App\Models\User;
@@ -39,7 +40,25 @@ class DatabaseSeeder extends Seeder
             'tahunBerdiri' => '1990',
             'tahunAjaran' => '2023/2024',
             'semester' => 'GENAP',
+            'jenjangPendidikan' => 'SMK',
+            'lintang' => '0.4989',
+            'bujur' => '117.5415',
+            'email' => 'abdurrizqoarra@gmail.com',
+            'website' => 'abdurrizqo.com',
+            'nomerTelfon' => '081380091948',
         ]);
+
+        PelengkapSekolah::create(
+            [
+                'skPendirian' => '0912841',
+                'tanggalSk' => fake()->dateTimeThisDecade(),
+                'skIzin' => '0912841',
+                'tanggalSkIzin' => fake()->dateTimeThisDecade(),
+                'rekening' => '0912841',
+                'noRekening' => '0912841',
+                'atasNamaRekening' => '0912841',
+            ]
+        );
 
         $dataPegawai = Pegawai::create([
             'nipy' => '019374719',

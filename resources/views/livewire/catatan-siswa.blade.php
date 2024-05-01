@@ -7,6 +7,9 @@
                 <form class="w-full" wire:submit.prevent="saveCatatanPts">
                     <textarea wire:model="catatanPts" class="w-full min-h-52 max-h-64 border-2 rounded-lg p-2 outline-none">
                     </textarea>
+                    @error('catatanPts')
+                        <p class="text-xs text-red-400">*{{ $message }}</p>
+                    @enderror
 
                     @if ($mesgSuccess)
                         <p class="text-green-500 poppins-regular">Berhasil Tersimpan</p>
@@ -31,6 +34,9 @@
                 <h1 class="poppins-semibold mb-5 text-lg">Catatan Untuk Siswa (PAS)</h1>
                 <form class="w-full" wire:submit.prevent="saveCatatanPas">
                     <textarea wire:model="catatanPas" class="w-full min-h-52 max-h-64 border-2 rounded-lg p-2 outline-none"></textarea>
+                    @error('catatanPas')
+                        <p class="text-xs text-red-400">*{{ $message }}</p>
+                    @enderror
 
                     @if ($mesgSuccess)
                         <p class="text-green-500 poppins-regular">Berhasil Tersimpan</p>

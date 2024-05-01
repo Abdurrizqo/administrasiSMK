@@ -19,7 +19,7 @@
             <div class="w-[30rem] md:w-[34rem] lg:w-[40rem] bg-white rounded-lg border p-10">
                 <h1 class="text-center poppins-bold text-lg md:text-xl mb-8">EDIT PROFIL SEKOLAH</h1>
 
-                <form method="POST" class="grid grid-cols-2 gap-5 text-sm md:text-base">
+                <form method="POST" class="grid grid-cols-2 gap-x-5 gap-y-0 text-sm md:text-base">
                     @csrf
                     <div>
                         <label class="form-control w-full mb-6">
@@ -71,6 +71,18 @@
                                 <option class="poppins-regular" value="GENAP">GENAP</option>
                             </select>
                             @error('semester')
+                                <p class="text-xs text-red-400 poppins-regular">*{{ $message }}</p>
+                            @enderror
+                        </label>
+
+                        <label class="form-control w-full mb-6">
+                            <div class="label">
+                                <span class="label-text poppins-semibold">Lintang</span>
+                            </div>
+                            <input required name="lintang" type="text"
+                                value="@isset($profile){{ $profile['lintang'] }}@endisset"
+                                placeholder="0.000" class="input poppins-regular input-bordered w-full" />
+                            @error('lintang')
                                 <p class="text-xs text-red-400 poppins-regular">*{{ $message }}</p>
                             @enderror
                         </label>
@@ -131,18 +143,90 @@
                                 <p class="text-xs text-red-400 poppins-regular">*{{ $message }}</p>
                             @enderror
                         </label>
+
+                        <label class="form-control w-full mb-6">
+                            <div class="label">
+                                <span class="label-text poppins-semibold">Bujur</span>
+                            </div>
+                            <input required name="bujur" type="text"
+                                value="@isset($profile){{ $profile['bujur'] }}@endisset"
+                                placeholder="0.000" class="input poppins-regular input-bordered w-full" />
+                            @error('bujur')
+                                <p class="text-xs text-red-400 poppins-regular">*{{ $message }}</p>
+                            @enderror
+                        </label>
                     </div>
 
-                    <div class="w-full col-span-2">
+                    <div class="w-full col-span-2 mb-6">
                         <div class="label">
                             <span class="label-text poppins-semibold">Alamat</span>
                         </div>
 
-                        <textarea name="alamat" class="border w-full p-3 rounded-lg outline-none h-28 poppins-regular" placeholder="Alamat">@isset($profile){{ $profile['alamat'] }}@endisset</textarea>
+                        <textarea name="alamat" class="border w-full p-3 rounded-lg outline-none h-28 poppins-regular" placeholder="Alamat">
+@isset($profile)
+{{ $profile['alamat'] }}
+@endisset
+</textarea>
                         @error('alamat')
                             <p class="text-xs text-red-400 poppins-regular">*{{ $message }}</p>
                         @enderror
                     </div>
+
+                    <label class="form-control w-full mb-6 col-span-2">
+                        <div class="label">
+                            <span class="label-text poppins-semibold">Jenjang Pendidikan</span>
+                        </div>
+                        <select required name="jenjangPendidikan" class="select select-bordered flex-1 poppins-regular">
+                            @isset($profile)
+                                <option class="poppins-regular" value="{{ $profile['jenjangPendidikan'] }}">
+                                    {{ $profile['jenjangPendidikan'] }}</option>
+                            @endisset
+                            <option class="poppins-regular" value="TK">TK</option>
+                            <option class="poppins-regular" value="SD">SD</option>
+                            <option class="poppins-regular" value="SMP">SMP</option>
+                            <option class="poppins-regular" value="SMA">SMA</option>
+                            <option class="poppins-regular" value="SMK">SMK</option>
+                        </select>
+                        @error('jenjangPendidikan')
+                            <p class="text-xs text-red-400 poppins-regular">*{{ $message }}</p>
+                        @enderror
+                    </label>
+
+                    <label class="form-control w-full mb-6 col-span-2">
+                        <div class="label">
+                            <span class="label-text poppins-semibold">Email</span>
+                        </div>
+                        <input required name="email" type="text"
+                            value="@isset($profile){{ $profile['email'] }}@endisset"
+                            placeholder="example@email.com" class="input poppins-regular input-bordered w-full" />
+                        @error('email')
+                            <p class="text-xs text-red-400 poppins-regular">*{{ $message }}</p>
+                        @enderror
+                    </label>
+
+                    <label class="form-control w-full mb-6 col-span-2">
+                        <div class="label">
+                            <span class="label-text poppins-semibold">Nomer Telfon</span>
+                        </div>
+                        <input required name="nomerTelfon" type="text"
+                            value="@isset($profile){{ $profile['nomerTelfon'] }}@endisset"
+                            placeholder="000000" class="input poppins-regular input-bordered w-full" />
+                        @error('nomerTelfon')
+                            <p class="text-xs text-red-400 poppins-regular">*{{ $message }}</p>
+                        @enderror
+                    </label>
+
+                    <label class="form-control w-full col-span-2">
+                        <div class="label">
+                            <span class="label-text poppins-semibold">Website</span>
+                        </div>
+                        <input required name="website" type="text"
+                            value="@isset($profile){{ $profile['website'] }}@endisset"
+                            placeholder="www.example.com" class="input poppins-regular input-bordered w-full" />
+                        @error('website')
+                            <p class="text-xs text-red-400 poppins-regular">*{{ $message }}</p>
+                        @enderror
+                    </label>
 
                     <div class="mt-10 w-full flex justify-end col-span-2">
                         <button class="btn btn-neutral w-40 poppins-medium">Simpan</button>

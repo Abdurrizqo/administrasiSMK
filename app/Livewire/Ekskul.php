@@ -8,9 +8,12 @@ use Livewire\Component;
 class Ekskul extends Component
 {
     public $isModalOpen = false;
+
     public $ekskul;
+
     public $formNamaEkskul;
     public $formNilaiEkskul;
+
     public $listEkskul;
     public $idSiswa;
     public $idKelas;
@@ -33,6 +36,12 @@ class Ekskul extends Component
     {
         $this->successMsg = null;
         $this->errorMsg = null;
+        $this->validate([
+            'formNamaEkskul' => 'required|string',
+            'formNilaiEkskul' => 'required|string',
+        ], [
+            'required' => 'Form Harus Di Isi'
+        ]);
 
         try {
             ModelsEkskul::create([
@@ -70,7 +79,7 @@ class Ekskul extends Component
     public function deleteEkskul($idEkskul)
     {
         try {
-            $tes = ModelsEkskul::where("idEkskul", $idEkskul)->delete();
+            ModelsEkskul::where("idEkskul", $idEkskul)->delete();
             $this->isModalOpen = false;
             $this->successMsg = "Delete Ekskul Berhasil";
         } catch (\Throwable $th) {

@@ -42,6 +42,15 @@ class InputNilai extends Component
 
     public function save()
     {
+        $this->validate([
+            'formNilaiAkademik' => 'required|numeric',
+            'formNilaiKeterampilan' => 'required|numeric',
+            'formKeterangan' => 'required|string',
+        ], [
+            'required' => 'Form Harus Di Isi',
+            'decimal' => 'Nilai Tidak Valid'
+        ]);
+
         try {
             $terbilangAkademik = $this->terbilang($this->formNilaiAkademik);
             $terbilangKeterampilan = $this->terbilang($this->formNilaiKeterampilan);

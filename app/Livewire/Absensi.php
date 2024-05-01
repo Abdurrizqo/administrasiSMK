@@ -3,14 +3,23 @@
 namespace App\Livewire;
 
 use App\Models\KelasSiswa;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class Absensi extends Component
 {
+    #[Validate('required|integer|min:0')]
     public $formTotalKehadiran;
+
+    #[Validate('required|integer|min:0')]
     public $formTotalIzin;
+
+    #[Validate('required|integer|min:0')]
     public $formTotalSakit;
+
+    #[Validate('required|integer|min:0')]
     public $formTotalAbsen;
+
     public $idSiswa;
     public $idKelas;
     public $semester;
@@ -47,6 +56,7 @@ class Absensi extends Component
 
     public function savePresensi()
     {
+        $this->validate();
         $this->successMsg = null;
         $this->errorMsg = null;
 

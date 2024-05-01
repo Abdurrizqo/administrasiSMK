@@ -48,6 +48,9 @@ class SiswaController extends Controller
             'nikWali' => 'required|string|max:40',
             'alamat' => 'required|string',
             'hubunganKeluarga' => 'required|in:Ayah,Ibu,Kakak,Paman,Ayah,',
+        ], [
+            'unique' => 'data telah digunakan',
+            'required' => 'form harus diisi',
         ]);
 
         $siswa = Siswa::create($validate);
@@ -126,7 +129,7 @@ class SiswaController extends Controller
 
     public function editSiswaView($idSiswa)
     {
-        $jurusan = Jurusan::get();
+        $jurusan = Jurusan::where('isActive', true)->get();
         $siswa = Siswa::where('idSiswa', $idSiswa)->first();
         if (!$siswa) {
             return abort(404);
@@ -147,6 +150,9 @@ class SiswaController extends Controller
             'nikWali' => 'required|string|max:40',
             'alamat' => 'required|string',
             'hubunganKeluarga' => 'required|in:Ayah,Ibu,Kakak,Paman,Ayah,',
+        ], [
+            'unique' => 'data telah digunakan',
+            'required' => 'form harus diisi',
         ]);
 
         $siswa = Siswa::where('idSiswa', $idSiswa)->update($validate);

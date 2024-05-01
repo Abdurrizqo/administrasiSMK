@@ -40,7 +40,7 @@ class TambahMapelKelas extends Component
     {
         $this->kelas = Kelas::select(['tahunAjaran', 'idKelas', 'namaKelas', 'pegawai.namaPegawai'])->where('idKelas', $this->idKelas)->leftJoin('pegawai', 'pegawai.idPegawai', '=', 'kelas.waliKelas')->first();
 
-        $this->guru = Pegawai::where('status', 'GURU')->orderBy('namaPegawai', 'asc')->get();
+        $this->guru = Pegawai::where('isActive', true)->where('status', 'GURU')->orderBy('namaPegawai', 'asc')->get();
 
         $this->mapel = MataPelajaran::orderBy('namaMataPelajaran', 'asc')
             ->get();

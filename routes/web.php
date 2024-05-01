@@ -49,7 +49,10 @@ Route::get('/home/kelas/{idKelasMapel}', [RekapNilaiController::class, 'kelasSis
 Route::get('/dashboard', [ProfileController::class, 'getProfile']);
 Route::post('/dashboard/tambah-logo', [ProfileController::class, 'addLogo']);
 Route::get('/dashboard/edit-profile-sekolah', [ProfileController::class, 'editProfileView']);
+Route::get('/dashboard/edit-profile-tambahan', [ProfileController::class, 'editProfileTambahanView']);
+Route::get('/dashboard/edit-visi-misi', [ProfileController::class, 'editVisiMisiView']);
 Route::post('/dashboard/edit-profile-sekolah', [ProfileController::class, 'handleEditProfile']);
+Route::post('/dashboard/edit-profile-tambahan', [ProfileController::class, 'handleEditProfileTambahan']);
 Route::get('/dashboard/atur-akreditas-sekolah', [ProfileController::class, 'aturAkreditasSekolah']);
 Route::post('/dashboard/atur-akreditas-sekolah', [ProfileController::class, 'handleAturAkreditasSekolah']);
 
@@ -68,6 +71,7 @@ Route::post('/dashboard/pegawai/tambah-pegawai', [PegawaiController::class, 'han
 Route::post('/dashboard/pegawai/tambah-user', [PegawaiController::class, 'addUserPegawai']);
 Route::get('/dashboard/pegawai/edit/{nip}', [PegawaiController::class, 'editPegawaiView']);
 Route::post('/dashboard/pegawai/edit/{nip}', [PegawaiController::class, 'handleEditPegawai']);
+Route::get('/dashboard/pegawai/delete/{nip}', [PegawaiController::class, 'deletePegawai']);
 
 Route::get('/dashboard/siswa', [SiswaController::class, 'listSiswa']);
 Route::get('/dashboard/siswa/tambah-siswa', [SiswaController::class, 'addSiswaView']);

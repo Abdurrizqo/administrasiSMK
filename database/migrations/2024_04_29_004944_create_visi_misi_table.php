@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pegawai', function (Blueprint $table) {
-            $table->uuid('idPegawai')->primary();
-            $table->string('nipy')->unique();
-            $table->string('namaPegawai');
-            $table->enum('status', ['TU', 'GURU']);
-            $table->boolean('isActive')->default(true);
+        Schema::create('visi_misi', function (Blueprint $table) {
+            $table->uuid('idVisiMisi')->primary();
+            $table->string('konten');
+            $table->enum('visiMisi', ['Visi', 'Misi']);
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pegawai');
+        Schema::dropIfExists('visi_misi');
     }
 };

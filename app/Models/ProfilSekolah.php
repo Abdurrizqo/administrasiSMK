@@ -12,19 +12,25 @@ class ProfilSekolah extends Model
 
     protected $table = 'profile_sekolah';
     protected $primaryKey = 'id';
-    protected $keyType = 'string';
     public $incrementing = false;
-
+    protected $keyType = 'string';
     protected $fillable = [
+        'id',
         'namaSekolah',
         'npsn',
         'nss',
+        'jenjangPendidikan',
         'namaKepalaSekolah',
         'nipKepalaSekolah',
+        'lintang',
+        'bujur',
         'alamat',
+        'nomerTelfon',
+        'email',
+        'website',
         'tahunBerdiri',
         'tahunAjaran',
         'logo',
-        'semester',
+        'semester'
     ];
 }

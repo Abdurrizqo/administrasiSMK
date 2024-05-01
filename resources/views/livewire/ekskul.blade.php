@@ -22,9 +22,9 @@
                     <span class="label-text font-semibold">Nama Ekskul</span>
                 </div>
                 <input type="text" wire:model="formNamaEkskul" class="input input-bordered w-full" />
-                {{-- @error('namaSiswa')
+                @error('formNamaEkskul')
                     <p class="text-xs text-red-400">*{{ $message }}</p>
-                @enderror --}}
+                @enderror
             </label>
 
             <label class="form-control w-full">
@@ -37,9 +37,9 @@
                     <option value="Baik">Baik</option>
                     <option value="Kurang">Kurang</option>
                 </select>
-                {{-- @error('namaSiswa')
+                @error('formNilaiEkskul')
                     <p class="text-xs text-red-400">*{{ $message }}</p>
-                @enderror --}}
+                @enderror
             </label>
         </div>
         <button class="btn-clcik bg-neutral rounded-lg text-white w-full py-3 mt-10">Simpan</button>

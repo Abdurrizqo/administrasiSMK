@@ -35,7 +35,7 @@ class FormDisposisiSurat extends Component
     public function render()
     {
         if ($this->searchPegawai) {
-            $this->pegawai = Pegawai::where('namaPegawai', 'like', '%' . $this->searchPegawai . '%')->get();
+            $this->pegawai = Pegawai::where('isActive', true)->where('namaPegawai', 'like', '%' . $this->searchPegawai . '%')->get();
         }
 
 

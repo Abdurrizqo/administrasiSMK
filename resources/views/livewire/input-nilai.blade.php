@@ -27,6 +27,9 @@
                         </div>
                         <input type="text" wire:model="formNilaiAkademik" placeholder="0"
                             class="input input-bordered w-full" />
+                        @error('formNilaiAkademik')
+                            <p class="text-xs text-red-400">*{{ $message }}</p>
+                        @enderror
                     </label>
 
                     <label class="form-control w-full">
@@ -35,6 +38,9 @@
                         </div>
                         <input type="text" wire:model="formNilaiKeterampilan" placeholder="0"
                             class="input input-bordered w-full" />
+                        @error('formNilaiKeterampilan')
+                            <p class="text-xs text-red-400">*{{ $message }}</p>
+                        @enderror
                     </label>
 
                     <div class="w-full">

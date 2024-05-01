@@ -13,6 +13,7 @@ use App\Models\RekapPts;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class PegawaiController extends Controller
@@ -21,9 +22,9 @@ class PegawaiController extends Controller
     {
         $search = $request->query('search');
         if (empty($search)) {
-            $pegawai = Pegawai::with('user')->orderBy('namaPegawai', 'asc')->paginate(10);
+            $pegawai = Pegawai::where('isActive', true)->with('user')->orderBy('namaPegawai', 'asc')->paginate(10);
         } else {
-            $pegawai = Pegawai::where('namaPegawai', 'like', "%$search%")->orderBy('namaPegawai', 'asc')->with('user')->paginate(10)->withQueryString();
+            $pegawai = Pegawai::where('isActive', true)->where('namaPegawai', 'like', "%$search%")->orderBy('namaPegawai', 'asc')->with('user')->paginate(10)->withQueryString();
         }
 
         return view('Pegawai/pegawai', ['pegawai' => $pegawai]);
@@ -40,6 +41,10 @@ class PegawaiController extends Controller
             'namaPegawai' => 'required|min:3',
             'nipy' => 'required|unique:pegawai,nipy|min:3',
             'status' => ['required', 'in:TU,GURU']
+        ], [
+            'required' => 'form harus diisi',
+            'min' => 'data minimal 3 karakter',
+            'in' => 'data harus bernilai TU atau GURU',
         ]);
 
         $newPegawai = Pegawai::create($validate);
@@ -62,6 +67,11 @@ class PegawaiController extends Controller
             'namaPegawai' => 'required|min:3',
             'nipy' => 'required|unique:pegawai,nipy,' . $idPegawai . ',idPegawai|min:3',
             'status' => ['required', 'in:TU,GURU']
+        ], [
+            'required' => 'form harus diisi',
+            'min' => 'data minimal 3 karakter',
+            'in' => 'data harus bernilai TU atau GURU',
+            'unique' => 'data telah digunakan',
         ]);
 
         $pegawai = Pegawai::where('idPegawai', $idPegawai)->update($validate);
@@ -76,6 +86,8 @@ class PegawaiController extends Controller
     {
         $validate = $request->validate([
             'username' => 'unique:users',
+        ], [
+            'unique' => 'data telah digunakan'
         ]);
 
         $avaibleUser = User::where('idPegawai', $request->idPegawai)->first();
@@ -139,4 +151,17 @@ class PegawaiController extends Controller
         return view('Pegawai/homePegawai', ['kelasDiampu' => $mataPelajaran, 'waliKelas' => $waliKelas, 'siswa' => $siswa, 'profileSekolah' => $profile, 'disposisi' => $disposisi]);
     }
 
+    public function deletePegawai($idPegawai)
+    {
+        try {
+            DB::beginTransaction();
+            Pegawai::where('idPegawai', $idPegawai)->update(['isActive' => false]);
+            User::where('idPegawai', $idPegawai)->delete();
+            DB::commit();
+            return redirect('dashboard/pegawai')->with('success', 'Hapus Pegawai Berhasil');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->refresh()->withInput()->with('error', 'Hapus Pegawai Gagal' . $th->getMessage());
+        }
+    }
 }

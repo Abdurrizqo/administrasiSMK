@@ -12,7 +12,7 @@ class KelasController extends Controller
 {
     public function listKelas(Request $request)
     {
-        $allGuru = Pegawai::where('status', 'GURU')->orderBy('namaPegawai', 'asc')->get();
+        $allGuru = Pegawai::where('isActive', true)->where('status', 'GURU')->orderBy('namaPegawai', 'asc')->get();
         $tahunSekarang = date('Y');
         $optionTahunAdd = array();
 

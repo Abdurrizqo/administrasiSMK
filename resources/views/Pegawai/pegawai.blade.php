@@ -127,7 +127,7 @@
                                     @endif
                                 </button>
                                 <button class="btn-delete"
-                                    onclick="my_modal_3.showModal(); modalDeletePegawai('{{ $item['namaPegawai'] }}','{{ $item['nipy'] }}')">Hapus</button>
+                                    onclick="my_modal_3.showModal(); modalDeletePegawai('{{ $item['namaPegawai'] }}','{{ $item['idPegawai'] }}')">Hapus</button>
                             </td>
                         </tr>
                     @endforeach
