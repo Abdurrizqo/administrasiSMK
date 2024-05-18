@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CatatanSiswa;
 use App\Models\Ekskul;
 use App\Models\Jurusan;
 use App\Models\KelasMapel;
 use App\Models\KelasSiswa;
 use App\Models\RekapPas;
+use App\Models\SertifikatSiswa;
 use App\Models\Siswa;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -72,8 +74,10 @@ class SiswaController extends Controller
             ->orderBy('tahunAjaran', 'desc')
             ->get();
 
+        $catatanSiswa = CatatanSiswa::where('idSiswa', $idSiswa)->orderBy('created_at', 'desc')->get();
+        $SertifikatSiswa = SertifikatSiswa::where('idSiswa', $idSiswa)->orderBy('created_at', 'desc')->get();
 
-        return view('Siswa/detailSiswa', ['siswa' => $siswa, 'kelas' => $kelas]);
+        return view('Siswa/detailSiswa', ['siswa' => $siswa, 'kelas' => $kelas, 'catatan' => $catatanSiswa, 'sertifikat' => $SertifikatSiswa]);
     }
 
     public function detailRaportSiswa($idSiswa, $idKelas, Request $request)
@@ -112,8 +116,17 @@ class SiswaController extends Controller
             ->first();
 
         $totalMapel = count($rekapMapel);
-        $avgAkademik = round($totalNilai->totalAkademik / $totalMapel, 2);
-        $avgKeterampilan = round($totalNilai->totalKeterampilan / $totalMapel, 2);
+        if ($totalNilai->totalMapel != 0) {
+            $avgAkademik = round($totalNilai->totalAkademik / $totalMapel, 2);
+        } else {
+            $avgAkademik = 0;
+        }
+
+        if ($totalNilai->totalKeterampilan != 0) {
+            $avgKeterampilan = round($totalNilai->totalKeterampilan / $totalMapel, 2);
+        } else {
+            $avgKeterampilan = 0;
+        }
 
 
         return view('Siswa/raportSiswa', [

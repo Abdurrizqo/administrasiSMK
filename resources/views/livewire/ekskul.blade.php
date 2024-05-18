@@ -3,7 +3,7 @@
     @if ($isModalOpen)
         <div class="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center">
             <div class="modal-box">
-                <h1 class="text-center text-lg font-medium mb-2">Hapus Data {{ $ekskul['namaEkskul'] }}</h1>
+                <h1 class="text-center text-base md:text-lg font-medium mb-2">Hapus Data {{ $ekskul['namaEkskul'] }}</h1>
                 <div class="modal-action flex justify-center">
                     <button wire:click="closeModal" class="btn-active btn-detail">Batal</button>
                     <button wire:click="deleteEkskul('{{ $ekskul['id'] }}')"
@@ -13,7 +13,7 @@
         </div>
     @endif
 
-    <h1 class="text-lg poppins-medium">Ekskul</h1>
+    <h1 class="text-base md:text-lg poppins-medium">Ekskul</h1>
 
     <form class="w-full mt-6" wire:submit.prevent="saveEkskul">
         <div class="flex gap-4 items-center">
@@ -63,7 +63,7 @@
         @foreach ($listEkskul as $item)
             <div class="p-3 rounded-md border shadow-md flex items-center">
                 <div class="flex-grow">
-                    <h1 class="poppins-semibold text-lg">{{ $item->namaEkskul }}</h1>
+                    <h1 class="poppins-semibold text-base md:text-lg">{{ $item->namaEkskul }}</h1>
                     <h1 class="poppins-light text-gray-400">{{ $item->nilai }}</h1>
                 </div>
                 <div>

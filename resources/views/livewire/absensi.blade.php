@@ -11,7 +11,7 @@
         </div>
     @endif
 
-    <h1 class="text-lg poppins-medium">Presensi</h1>
+    <h1 class="text-base md:text-lg poppins-medium">Presensi</h1>
 
     <form class="w-full mt-6" wire:submit.prevent="savePresensi">
         <div class="flex gap-4 items-center">

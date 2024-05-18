@@ -108,26 +108,27 @@
                     @foreach ($pegawai as $index => $item)
                         <tr>
                             <th class="text-center">{{ ++$index }}</th>
-                            <td class="text-center">{{ $item['nipy'] }}</td>
-                            <td class="whitespace-nowrap">{{ $item['namaPegawai'] }}</td>
-                            <td class="text-center">{{ $item['status'] }}</td>
+                            <td class="text-center">{{ $item->nipy }}</td>
+                            <td class="whitespace-nowrap"><a class="hover:text-sky-600 hover:underline hover:underline-offset-8"
+                                    href="pegawai/{{ $item->idPegawai }}">{{ $item->namaPegawai }}</a></td>
+                            <td class="text-center">{{ $item->status }}</td>
                             <td class="text-center">
-                                @if ($item['user'])
-                                    {{ $item['user']['username'] }}
+                                @if ($item->user)
+                                    {{ $item->user->username }}
                                 @endif
                             </td>
                             <td class="flex gap-4 justify-center">
-                                <a href="pegawai/edit/{{ $item['idPegawai'] }}" class="btn-edit">Edit</a>
-                                <button class="btn-detail"
-                                    onclick="my_modal_2.showModal(); modalAddUser('{{ $item['namaPegawai'] }}','{{ $item['nipy'] }}','{{ $item['status'] }}','{{ $item['idPegawai'] }}')">
-                                    @if ($item['user'])
+                                <a href="pegawai/edit/{{ $item->idPegawai }}" class="btn-edit btn-click">Edit</a>
+                                <button class="btn-detail btn-click"
+                                    onclick="my_modal_2.showModal(); modalAddUser('{{ $item->namaPegawai }}','{{ $item->nipy }}','{{ $item->status }}','{{ $item->idPegawai }}')">
+                                    @if ($item->user)
                                         Edit Akun
                                     @else
                                         Tambah Akun
                                     @endif
                                 </button>
-                                <button class="btn-delete"
-                                    onclick="my_modal_3.showModal(); modalDeletePegawai('{{ $item['namaPegawai'] }}','{{ $item['idPegawai'] }}')">Hapus</button>
+                                <button class="btn-delete btn-click"
+                                    onclick="my_modal_3.showModal(); modalDeletePegawai('{{ $item->namaPegawai }}','{{ $item->idPegawai }}')">Hapus</button>
                             </td>
                         </tr>
                     @endforeach

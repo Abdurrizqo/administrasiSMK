@@ -2,6 +2,8 @@
 
 use App\Events\HelloEvent;
 use App\Http\Controllers\AgendaSuratController;
+use App\Http\Controllers\CatatanPegawaiControlller;
+use App\Http\Controllers\CatatanSiswaController;
 use App\Http\Controllers\DisposisiController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\KelasController;
@@ -10,6 +12,8 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RekapNilaiController;
+use App\Http\Controllers\SertifikatPegawaiControlller;
+use App\Http\Controllers\SertifikatSiswaControlller;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +50,10 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/home/siswa/{idKelas}/{idSiswa}', [RekapNilaiController::class, 'setKenaikanKelas']);
         Route::get('/home/siswa/{idKelas}/{idSiswa}/raportpdf', [RekapNilaiController::class, 'cetakRaportSiswa']);
         Route::get('/home/siswa/{idKelas}/{idSiswa}/rekap-nilai-siswa', [RekapNilaiController::class, 'rekapNilaiSiswaExcel']);
+        Route::post('catatan/{idSiswa}', [CatatanSiswaController::class, 'createCatatanSiswaByGuru']);
+        Route::post('sertifikat/{idSiswa}', [SertifikatSiswaControlller::class, 'addSertifikatSiswa']);
+        Route::get('catatan/{idCatatanSiswa}/delete', [CatatanSiswaController::class, 'deleteCatatanSiswa']);
+        Route::get('sertifikat/{idSertifikatSiswa}/delete', [SertifikatSiswaControlller::class, 'deleteSertifikatSiswa']);
 
         Route::get('/home/disposisi/{idDisposisi}', [DisposisiController::class, 'balasanDisposisi']);
 
@@ -82,6 +90,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard/pegawai/edit/{nip}', [PegawaiController::class, 'editPegawaiView']);
         Route::post('/dashboard/pegawai/edit/{nip}', [PegawaiController::class, 'handleEditPegawai']);
         Route::get('/dashboard/pegawai/delete/{nip}', [PegawaiController::class, 'deletePegawai']);
+        Route::get('/dashboard/pegawai/{idPegawai}', [PegawaiController::class, 'detailPegawai']);
+        Route::post('/dashboard/pegawai/{idPegawai}', [CatatanPegawaiControlller::class, 'createCatatanPegawai'])->name('addCatatanSiswa');
+        Route::post('/dashboard/pegawai/{idPegawai}/sertifikat', [SertifikatPegawaiControlller::class, 'addSertifikatPegawai'])->name('addSertifikatPegawai');
+        Route::get('/dashboard/pegawai/{idCatatanSiswa}/delete/catatan', [CatatanPegawaiControlller::class, 'deleteCatatanPegawai'])->name('deleteSertifikatPegawai');
+        Route::get('/dashboard/pegawai/{idSertifikatSiswa}/delete/sertifikat', [SertifikatPegawaiControlller::class, 'deleteSertifikatPegawai'])->name('deleteSertifikatPegawai');
 
         Route::get('/dashboard/siswa', [SiswaController::class, 'listSiswa']);
         Route::get('/dashboard/siswa/tambah-siswa', [SiswaController::class, 'addSiswaView']);
@@ -89,6 +102,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard/siswa/import-excel-siswa', [SiswaController::class, 'imporSiswaFromExcelView']);
         Route::post('/dashboard/siswa/import-excel-siswa', [SiswaController::class, 'handleImporSiswaFromExcel']);
         Route::get('/dashboard/siswa/detail/{idSiswa}', [SiswaController::class, 'detailSiswa'])->name('detailSiswa');
+        Route::post('/dashboard/siswa/detail/{idSiswa}', [CatatanSiswaController::class, 'createCatatanSiswa']);
         Route::get('/dashboard/siswa/detail/{idSiswa}/raport/{idKelas}', [SiswaController::class, 'detailRaportSiswa'])->name('siswa.raport');
         Route::get('/dashboard/siswa/detail/{idSiswa}/edit', [SiswaController::class, 'editSiswaView']);
         Route::post('/dashboard/siswa/detail/{idSiswa}/edit', [SiswaController::class, 'handleEditSiswa']);
@@ -96,6 +110,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/dashboard/siswa/{idSiswa}/add-foto', [SiswaController::class, 'addFotoSiswa']);
         Route::post('/dashboard/siswa/{idSiswa}/ganti-status', [SiswaController::class, 'gantiStatusSiswa']);
         Route::get('/dashboard/siswa/ijazah/download/{filename}', [SiswaController::class, 'downloadIjazah'])->name('siswa.downloadIjazah');
+        Route::post('/dashboard/siswa/detail/{idSiswa}/sertifikat', [SertifikatSiswaControlller::class, 'addSertifikatSiswa'])->name('addSertifikatSiswa');
+        Route::get('/dashboard/siswa/{idSertifikatSiswa}/delete/sertifikat', [SertifikatSiswaControlller::class, 'deleteSertifikatSiswa'])->name('deleteSertifikatSiswa');
+        Route::get('/dashboard/siswa/{idCatatanSiswa}/delete/catatan', [CatatanSiswaController::class, 'deleteCatatanSiswa'])->name('deleteSertifikatSiswa');
 
         Route::get('/dashboard/kelas', [KelasController::class, 'listKelas']);
         Route::post('/dashboard/kelas', [KelasController::class, 'handleAddKelas']);

@@ -26,6 +26,14 @@
                         <button class="btn btn-neutral w-40">Simpan</button>
                     </div>
                 </form>
+
+                <div class="text-sm text-red-500 mt-10 flex flex-col gap-2">
+                    <p>*Download template excel <a target="_blank" class="hover:underline hover:underline-offset-2" href="{{ asset('dokumen/template_import.xlsx') }}">Disini</a>.</p>
+                    <p>*Isi mulai dari baris kedua dan seterusnya, jangan ubah template pada baris pertama</p>
+                    <p>*Gunakan Id Jurusan pada menu Program Keahlian / Kompetensi Keahlian</p>
+                    <p>*Pada kolom hubungan_keluarga isikan dengan nilai 'Ayah', 'Ibu', 'Kakak', 'Paman', 'Lainnya'</p>
+                    <p>*Setelah selesai lakukan pengisian form dengan mengupload file tersebut</p>
+                </div>
             </div>
         </div>
 

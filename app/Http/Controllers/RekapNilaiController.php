@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CatatanSiswa;
 use App\Models\Kelas;
 use App\Models\KelasMapel;
 use App\Models\KelasSiswa;
 use App\Models\ProfilSekolah;
 use App\Models\RekapPas;
 use App\Models\RekapPts;
+use App\Models\SertifikatSiswa;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +17,6 @@ use Rap2hpoutre\FastExcel\FastExcel;
 use OpenSpout\Common\Entity\Style\Style;
 use Rap2hpoutre\FastExcel\SheetCollection;
 
-use function PHPSTORM_META\type;
 
 class RekapNilaiController extends Controller
 {
@@ -28,6 +29,9 @@ class RekapNilaiController extends Controller
             ->where("idKelas", $idKelas)
             ->leftJoin('siswa', 'siswa.idSiswa', '=', 'kelas_siswa.idSiswa')
             ->first();
+
+        $catatanSiswa = CatatanSiswa::where('idSiswa', $idSiswa)->orderBy('created_at', 'desc')->get();
+        $SertifikatSiswa = SertifikatSiswa::where('idSiswa', $idSiswa)->orderBy('created_at', 'desc')->get();
 
         $rekapMapel = KelasMapel::where('kelas_mapel.kelas', $idKelas)
             ->where('semester', $profile->semester)
@@ -59,13 +63,13 @@ class RekapNilaiController extends Controller
         $totalMapel = count($rekapMapel);
 
         $avgpas = [
-            "avgAkademik" => round($totalNilaiPas->totalAkademik / $totalMapel, 2),
-            "avgKeterampilan" => round($totalNilaiPas->totalKeterampilan / $totalMapel, 2)
+            "avgAkademik" => $totalMapel != 0 ? round($totalNilaiPas->totalAkademik / $totalMapel, 2) : 0,
+            "avgKeterampilan" => $totalMapel != 0 ? round($totalNilaiPas->totalKeterampilan / $totalMapel, 2) : 0
         ];
 
         $avgpts = [
-            "avgAkademik" => round($totalNilaiPts->totalAkademik / $totalMapel, 2),
-            "avgKeterampilan" => round($totalNilaiPts->totalKeterampilan / $totalMapel, 2)
+            "avgAkademik" => $totalMapel != 0 ? round($totalNilaiPts->totalAkademik / $totalMapel, 2) : 0,
+            "avgKeterampilan" => $totalMapel != 0 ? round($totalNilaiPts->totalKeterampilan / $totalMapel, 2) : 0
         ];
 
 
@@ -80,7 +84,9 @@ class RekapNilaiController extends Controller
                 'totalNilaiPas' => $totalNilaiPas,
                 'totalNilaiPts' => $totalNilaiPts,
                 'avgpas' => $avgpas,
-                'avgpts' => $avgpts
+                'avgpts' => $avgpts,
+                'catatan' => $catatanSiswa,
+                'sertifikat' => $SertifikatSiswa
             ]
         );
     }
@@ -152,8 +158,8 @@ class RekapNilaiController extends Controller
         $totalMapel = count($rekapMapel);
 
         $avgpas = [
-            "avgAkademik" => round($totalNilaiPas->totalAkademik / $totalMapel, 2),
-            "avgKeterampilan" => round($totalNilaiPas->totalKeterampilan / $totalMapel, 2)
+            "avgAkademik" => $totalMapel != 0 ? round($totalNilaiPas->totalAkademik / $totalMapel, 2) : 0,
+            "avgKeterampilan" => $totalMapel != 0 ? round($totalNilaiPas->totalKeterampilan / $totalMapel, 2) : 0
         ];
 
         $pdf = Pdf::loadView('pdf.raport', [
@@ -205,8 +211,8 @@ class RekapNilaiController extends Controller
         $totalMapel = count($rekapMapel);
 
         $avgpas = [
-            "avgAkademik" => round($totalNilaiPas->totalAkademik / $totalMapel, 2),
-            "avgKeterampilan" => round($totalNilaiPas->totalKeterampilan / $totalMapel, 2)
+            "avgAkademik" => $totalMapel != 0 ? round($totalNilaiPas->totalAkademik / $totalMapel, 2) : 0,
+            "avgKeterampilan" => $totalMapel != 0 ? round($totalNilaiPas->totalKeterampilan / $totalMapel, 2) : 0
         ];
 
         $result = [];
@@ -313,8 +319,8 @@ class RekapNilaiController extends Controller
 
                 foreach ($rekapKelas as $value) {
                     if ($item->idSiswa === $value->siswa) {
-                        $avgAkademik = round($value->totalNilaiAkademik / $totalMapel, 2);
-                        $avgKeterampilan = round($value->totalNilaiKeterampilan / $totalMapel, 2);
+                        $avgAkademik = $totalMapel != 0 ? round($value->totalNilaiAkademik / $totalMapel, 2) : 0;
+                        $avgKeterampilan = $totalMapel != 0 ? round($value->totalNilaiKeterampilan / $totalMapel, 2) : 0;
 
                         $result[] = [
                             "Nama Siswa" => $item->namaSiswa,

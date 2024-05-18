@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CatatanPegawai;
 use App\Models\DisposisiSurat;
 use App\Models\Kelas;
 use App\Models\KelasMapel;
@@ -10,6 +11,7 @@ use App\Models\Pegawai;
 use App\Models\ProfilSekolah;
 use App\Models\RekapPas;
 use App\Models\RekapPts;
+use App\Models\SertifikatPegawai;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -200,5 +202,13 @@ class PegawaiController extends Controller
         }
 
         return redirect()->back()->with('error', 'Ganti Password Gagal');
+    }
+
+    public function detailPegawai($idPegawai)
+    {
+        $catatan = CatatanPegawai::where('idPegawai', $idPegawai)->orderBy('created_at', 'desc')->get();
+        $sertifikat = SertifikatPegawai::where('idPegawai', $idPegawai)->orderBy('created_at', 'desc')->get();
+
+        return view('Pegawai/detailPegawai', ['catatan' => $catatan, 'sertifikat' => $sertifikat, 'idPegawai' => $idPegawai]);
     }
 }

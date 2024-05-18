@@ -31,7 +31,7 @@
     @if ($isModalPasOpen)
         <div class="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center z-40">
             <div class="w-[40rem] bg-white p-5 rounded-xl">
-                <h1 class="poppins-semibold mb-5 text-lg">Catatan Untuk Siswa (PAS)</h1>
+                <h1 class="poppins-semibold mb-5 text-base md:text-lg">Catatan Untuk Siswa (PAS)</h1>
                 <form class="w-full" wire:submit.prevent="saveCatatanPas">
                     <textarea wire:model="catatanPas" class="w-full min-h-52 max-h-64 border-2 rounded-lg p-2 outline-none"></textarea>
                     @error('catatanPas')
@@ -55,7 +55,7 @@
         </div>
     @endif
 
-    <h1 class="text-lg poppins-medium">Catatan Siswa</h1>
+    <h1 class="text-base md:text-lg poppins-medium">Catatan Siswa</h1>
 
     <div class="flex gap-4 justify-center items-center w-full mt-6">
         <button wire:click="openModalPts" class="btn-click py-2 rounded-lg flex-grow text-white bg-gray-800">Catatan

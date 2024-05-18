@@ -4,8 +4,7 @@
         <div class="modal-action flex justify-center">
             <form method="dialog" class="flex justify-center gap-8">
                 <button class="btn-active btn-detail">Batal</button>
-                <a id="linkGantiStatus"
-                    class="btn-active"></a>
+                <a id="linkGantiStatus" class="btn-active"></a>
             </form>
         </div>
     </div>
@@ -14,8 +13,7 @@
 <dialog id="my_modal_2" class="modal">
     <div class="modal-box">
         <h1 class="text-center text-lg font-medium mb-8" id="titleModal"></h1>
-        <form method="POST" action="jurusan/edit"
-            class="w-full flex flex-col gap-3">
+        <form method="POST" action="jurusan/edit" class="w-full flex flex-col gap-3">
             @csrf
             <label class="form-control w-full">
                 <div class="label">
@@ -71,6 +69,7 @@
                 <thead>
                     <tr>
                         <th class="text-center">No</th>
+                        <th class="text-center">ID Jurusan</th>
                         <th class="text-center">Nama Jurusan</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Kontrol</th>
@@ -80,9 +79,10 @@
                     @foreach ($jurusan as $index => $item)
                         <tr>
                             <th>{{ ++$index }}</th>
-                            <td>{{ $item['namaJurusan'] }}</td>
+                            <td>{{ $item->idJurusan }}</td>
+                            <td>{{ $item->namaJurusan }}</td>
                             <td class="text-center">
-                                @if ($item['isActive'])
+                                @if ($item->isActive)
                                     <p class="text-green-400 poppins-medium">Aktif</p>
                                 @else
                                     <p class="text-red-400 poppins-medium">Non Aktif</p>
