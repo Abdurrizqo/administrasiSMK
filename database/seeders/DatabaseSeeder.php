@@ -10,6 +10,7 @@ use App\Models\MataPelajaran;
 use App\Models\Pegawai;
 use App\Models\PelengkapSekolah;
 use App\Models\ProfilSekolah;
+use App\Models\RencanaKegiatan;
 use App\Models\Siswa;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -137,5 +138,6 @@ class DatabaseSeeder extends Seeder
 
         Siswa::factory()->count(600)->create();
         AgendaSurat::factory()->count(1000)->create();
+        RencanaKegiatan::factory()->count(1000)->create();
     }
 }

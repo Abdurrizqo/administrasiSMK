@@ -165,6 +165,24 @@
                                         <p class="text-left">{{ $profile['website'] }}</p>
                                     </td>
                                 </tr>
+
+                                <tr>
+                                    <td class="w-[16rem]">
+                                        <p class="poppins-medium whitespace-nowrap">Semester</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-left">{{ $profile['semester'] }}</p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="w-[16rem]">
+                                        <p class="poppins-medium whitespace-nowrap">Tahun Ajaran</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-left">{{ $profile['tahunAjaran'] }}</p>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

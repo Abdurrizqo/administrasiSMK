@@ -132,6 +132,15 @@
 
                     <p class="inline-block flex-1">Disposisi Surat</p>
                 </a>
+
+                <a href="/rencana-kegiatan"
+                    class="hover:bg-gray-700 mb-40 p-3 rounded-md cursor-pointer flex gap-3 items-center">
+                    <span class="material-icons inline-block w-8">
+                        psychology
+                    </span>
+
+                    <p class="inline-block flex-1">Rencana Kegiatan</p>
+                </a>
             </div>
         </div>
 

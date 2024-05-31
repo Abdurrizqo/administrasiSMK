@@ -55,8 +55,12 @@
             </div>
         </div>
 
-        <div class="min-w-[20rem] max-w-[20rem] flex flex-col gap-6">
-            <div class="border rounded-lg bg-white p-4 h-full">
+        <div class="w-[20rem] flex flex-col gap-6">
+            <div class="border rounded-lg bg-white p-4">
+                <a href="/rencana-kegiatan" class="bg-gray-800 text-white w-full py-2 inline-block text-center rounded btn-click hover:bg-gray-900">Rencana Kegiata Sekolah</a>
+            </div>
+
+            <div class="border rounded-lg bg-white p-4 h-full flex-1">
                 <h1 class="mb-5 text-xl poppins-bold">Disposisi</h1>
 
                 @foreach ($disposisi as $item)

@@ -79,7 +79,7 @@
                             <div class="label">
                                 <span class="label-text poppins-semibold">Lintang</span>
                             </div>
-                            <input required name="lintang" type="text"
+                            <input name="lintang" type="text"
                                 value="@isset($profile){{ $profile['lintang'] }}@endisset"
                                 placeholder="0.000" class="input poppins-regular input-bordered w-full" />
                             @error('lintang')
@@ -148,7 +148,7 @@
                             <div class="label">
                                 <span class="label-text poppins-semibold">Bujur</span>
                             </div>
-                            <input required name="bujur" type="text"
+                            <input name="bujur" type="text"
                                 value="@isset($profile){{ $profile['bujur'] }}@endisset"
                                 placeholder="0.000" class="input poppins-regular input-bordered w-full" />
                             @error('bujur')

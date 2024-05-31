@@ -12,6 +12,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RekapNilaiController;
+use App\Http\Controllers\RencanaKegiatanController;
 use App\Http\Controllers\SertifikatPegawaiControlller;
 use App\Http\Controllers\SertifikatSiswaControlller;
 use App\Http\Controllers\SiswaController;
@@ -38,6 +39,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/download-file/surat/{filename}', [AgendaSuratController::class, 'downloadFileOnDokumen'])->name('dokumenFile.download');
     Route::get('/load-message/{idDisposisi}', [MessageController::class, 'loadMessage']);
     Route::post('/send-message/{idDisposisi}', [MessageController::class, 'saveMessage']);
+
+    Route::get("/list-pegawai", [PegawaiController::class, 'getAllPegawawi']);
+
+    Route::get('/rencana-kegiatan', [RencanaKegiatanController::class, 'index']);
+    Route::get('/rencana-kegiatan/create', [RencanaKegiatanController::class, 'storeView']);
+    Route::post('/rencana-kegiatan/create', [RencanaKegiatanController::class, 'store']);
+    Route::get('/rencana-kegiatan/detail/{idRencanaKegiatan}', [RencanaKegiatanController::class, 'show']);
+    Route::post('/rencana-kegiatan/detail/{idRencanaKegiatan}', [RencanaKegiatanController::class, 'update']);
+
 
     Route::middleware(['guru.role'])->group(function () {
         Route::get('/home', [PegawaiController::class, 'homePegawaiView']);

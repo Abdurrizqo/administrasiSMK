@@ -55,6 +55,7 @@
                             <p class="text-xs text-red-400 poppins-regular">*{{ $message }}</p>
                         @enderror
                     </label>
+                    
                     <div class="mt-10 w-full flex justify-end col-span-2">
                         <button class="btn btn-neutral w-40 poppins-medium">Simpan</button>
                     </div>

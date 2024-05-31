@@ -211,4 +211,23 @@ class PegawaiController extends Controller
 
         return view('Pegawai/detailPegawai', ['catatan' => $catatan, 'sertifikat' => $sertifikat, 'idPegawai' => $idPegawai]);
     }
+
+    public function getAllPegawawi(Request $request)
+    {
+        try {
+            $search = $request->query('search', '');
+
+            if (!empty($search)) {
+                $pegawai = Pegawai::where('namaPegawai', 'like', "%$search%")
+                    ->orderBy('namaPegawai', 'asc')
+                    ->get();
+            } else {
+                return response()->json(['error' => 'Nama Pegawai Tidak Valid'], 400);
+            }
+
+            return response()->json(['data' => $pegawai], 200);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 400);
+        }
+    }
 }
