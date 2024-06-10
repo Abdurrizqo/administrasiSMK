@@ -17,6 +17,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class PegawaiController extends Controller
 {
@@ -202,6 +204,64 @@ class PegawaiController extends Controller
         }
 
         return redirect()->back()->with('error', 'Ganti Password Gagal');
+    }
+
+    public function gantiPhotoProfileView()
+    {
+        return view('pegawai.gantiProfile');
+    }
+
+    public function gantiPhotoProfile(Request $request)
+    {
+        $validate = $request->validate(
+            [
+                'photoProfile' => 'required|image|mimes:jpeg,png,jpg,gif|max:3072'
+            ]
+        );
+
+        $user = Auth::user();
+        $myUser = User::where('idUser', $user->idUser)->first();
+
+        if (isset($myUser->photoProfile)) {
+            Storage::delete("public/{$myUser->photoProfile}");
+        }
+
+        $fileName = Str::random(6) . '_' . time() . '.' . $request->file('photoProfile')->getClientOriginalExtension();
+        $myUser->photoProfile = $request->file('photoProfile')->storeAs('userProfile', $fileName, 'public');
+
+        $myUser->save();
+
+        Auth::setUser($myUser);
+        return redirect('dashboard')->with('success', 'Ganti Foto Profile Berhasil');
+    }
+
+    public function gantiPhotoProfileGuruView()
+    {
+        return view('pegawai.gantiProfileGuru');
+    }
+
+    public function gantiPhotoProfileGuru(Request $request)
+    {
+        $validate = $request->validate(
+            [
+                'photoProfile' => 'required|image|mimes:jpeg,png,jpg,gif|max:3072'
+            ]
+        );
+
+        $user = Auth::user();
+        $myUser = User::where('idUser', $user->idUser)->first();
+
+        if (isset($myUser->photoProfile)) {
+            Storage::delete("public/{$myUser->photoProfile}");
+        }
+
+        $fileName = Str::random(6) . '_' . time() . '.' . $request->file('photoProfile')->getClientOriginalExtension();
+        $myUser->photoProfile = $request->file('photoProfile')->storeAs('userProfile', $fileName, 'public');
+
+        $myUser->save();
+
+        Auth::setUser($myUser);
+        return redirect('home')->with('success', 'Ganti Foto Profile Berhasil');
     }
 
     public function detailPegawai($idPegawai)

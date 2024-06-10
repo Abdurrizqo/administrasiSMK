@@ -5,6 +5,7 @@ use App\Http\Controllers\AgendaSuratController;
 use App\Http\Controllers\CatatanPegawaiControlller;
 use App\Http\Controllers\CatatanSiswaController;
 use App\Http\Controllers\DisposisiController;
+use App\Http\Controllers\JurnalKegiatanController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\SertifikatPegawaiControlller;
 use App\Http\Controllers\SertifikatSiswaControlller;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\UserController;
+use App\Models\Pegawai;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,6 +41,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/download-file/surat/{filename}', [AgendaSuratController::class, 'downloadFileOnDokumen'])->name('dokumenFile.download');
     Route::get('/load-message/{idDisposisi}', [MessageController::class, 'loadMessage']);
     Route::post('/send-message/{idDisposisi}', [MessageController::class, 'saveMessage']);
+
+    Route::get("/ganti-photo-profile", [PegawaiController::class, 'gantiPhotoProfileView']);
+    Route::post("/ganti-photo-profile", [PegawaiController::class, 'gantiPhotoProfile']);
+
+    Route::get("/ganti-photo-profile-guru", [PegawaiController::class, 'gantiPhotoProfileGuruView']);
+    Route::post("/ganti-photo-profile-guru", [PegawaiController::class, 'gantiPhotoProfileGuru']);
 
     Route::get("/list-pegawai", [PegawaiController::class, 'getAllPegawawi']);
 
@@ -139,5 +147,10 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/dashboard/disposisi-surat', [DisposisiController::class, 'listDisposisiSurat']);
         Route::get('/dashboard/disposisi-surat/{idDisposisi}', [DisposisiController::class, 'balasanDisposisi']);
+
+        Route::get('/dashboard/jurnal-kegiatan', [JurnalKegiatanController::class, 'index']);
+        Route::get('/dashboard/jurnal-kegiatan/tulis-jurnal', [JurnalKegiatanController::class, 'storeView']);
+        Route::post('/dashboard/jurnal-kegiatan/tulis-jurnal', [JurnalKegiatanController::class, 'store']);
+        Route::get('/dashboard/jurnal-kegiatan/export-jurnal', [JurnalKegiatanController::class, 'exportJurnal']);
     });
 });

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('idUser')->primary();
             $table->string('username')->unique();
             $table->string('password');
+            $table->string('photoProfile')->nullable(true);
             $table->enum('role', ['TU', 'GURU']);
             $table->uuid('idPegawai');
             $table->foreign('idPegawai')->references('idPegawai')->on('pegawai')->onDelete('cascade')->onUpdate('cascade');
