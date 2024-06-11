@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @vite('resources/css/app.css')
 
-    <title>Laravel</title>
+    <title>SIAS</title>
 </head>
 
 <div class="flex w-full h-screen justify-center items-center bg-gray poppins-regular">
